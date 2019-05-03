@@ -1,0 +1,69 @@
+{
+  "version": 23.9,
+  "renderTo": "bar3",
+  "data": {
+    "y": {
+      "vars": [
+        "Variable1"
+      ],
+      "smps": [
+        "Sample1",
+        "Sample2",
+        "Sample3"
+      ],
+      "data": [
+        [
+          33,
+          44,
+          55
+        ]
+      ]
+    }
+  },
+  "config": {
+    "decorations": {
+      "marker": [
+        {
+          "fontSize": 12,
+          "variable": "Variable1",
+          "sample": "Sample1",
+          "text": "p < 0.01 ***",
+          "type": "annotation"
+        },
+        {
+          "text": "p < 0.05 **",
+          "fontSize": 12,
+          "sample": "Sample2",
+          "variable": "Variable1",
+          "type": "annotation"
+        }
+      ]
+    },
+    "graphOrientation": "vertical",
+    "graphType": "Bar",
+    "title": "Simple Bar graph with annotations"
+  },
+  "events": false,
+  "info": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [
+        450,
+        450,
+        true
+      ]
+    ]
+  ],
+  "client": "MTU1NjkxNDY0MjY2Mzo6MTo6MjMuOTo6",
+  "clientIP": {
+    "country": "United States",
+    "longitude": -74.9535,
+    "continentCode": "NA",
+    "postal": "18940",
+    "countryCode": "US",
+    "city": "Newtown",
+    "continent": "North America",
+    "latitude": 40.2647
+  }
+}

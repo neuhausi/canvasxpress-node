@@ -4,6 +4,8 @@ const menus = {
     canvasxpress [command] <options>
 
     png ................ create a png file 
+    svg ................ create a svg file 
+    json ............... create a json file 
     test ............... test package
     version ............ show package version    
     help ............... show help menu for a command
@@ -16,8 +18,26 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
-                         `,
-  	
+    `,
+
+  svg: `
+    --input, -i ........ <required> file or url with CanvasXpress visualizations:
+                         file:///path/to/local/file.html
+                         http://page/with/visualization.html
+                         https://page/with/visualization.html
+    --output, -o ....... [optional] directory path to save images
+                         {default} './'
+    `,
+    
+  json: `
+    --input, -i ........ <required> file or url with CanvasXpress visualizations:
+                         file:///path/to/local/file.html
+                         http://page/with/visualization.html
+                         https://page/with/visualization.html
+    --output, -o ....... [optional] directory path to save images
+                         {default} './'
+    `
+
 }
 
 module.exports = (args) => {

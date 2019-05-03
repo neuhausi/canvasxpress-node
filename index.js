@@ -28,6 +28,22 @@ module.exports = () => {
     	}
       break;
       
+    case 'svg':
+    	if (input) {
+        require('./cmds/svg')(input, output);    		
+    	} else {
+        require('./cmds/help')(args);    		
+    	}
+      break;
+
+    case 'json':
+    	if (input) {
+        require('./cmds/json')(input, output);    		
+    	} else {
+        require('./cmds/help')(args);    		
+    	}
+      break;
+
     case 'version':
       require('./cmds/version')(args);
       break;
@@ -38,6 +54,8 @@ module.exports = () => {
   	
     case 'test':
       require('./cmds/png')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
+      require('./cmds/svg')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
+      require('./cmds/json')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
       break;
 
     default:

@@ -1,0 +1,15 @@
+{
+  "name": "canvasXpress-cli",
+  "version": "1.0.0",
+  "license": "MIT",
+  "bin": {
+    "canvasxpress": "bin/canvasxpress"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "ora": "^3.4.0",
+    "puppeteer": "^1.15.0"
+  }
+}

@@ -7,6 +7,7 @@ const menus = {
     svg ................ create a svg file 
     json ............... create a json file 
     test ............... test package
+    debug .............. debug package
     version ............ show package version    
     help ............... show help menu for a command
     `,

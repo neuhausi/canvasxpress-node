@@ -58,6 +58,10 @@ module.exports = () => {
       require('./cmds/json')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
       break;
 
+    case 'debug':
+    	require('./cmds/debug')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
+    	break;
+      
     default:
       console.error(`"${cmd}" is not a valid command!`);
       break;

@@ -1,6 +1,6 @@
 {
   "name": "canvasxpress",
-  "version": "24.0.0",
+  "version": "24.0.5",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"
@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/neuhausi/canvasxpress/issues"
   },
-  "homepage": "https://github.com/neuhausi/canvasxpress#readme"
+  "homepage": "https://github.com/neuhausi/canvasxpress#readme",
   "dependencies": {
     "chalk": "^2.4.2",
     "clear": "^0.1.0",

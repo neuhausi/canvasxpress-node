@@ -30,6 +30,11 @@ module.exports = async (input, output) => {
 			
 		});
 		
+		setTimeout(() => { 
+			browser.close(); 
+	    spinner.stop();
+		}, 500);
+		
   } catch (err) {
 
   	spinner.stop()

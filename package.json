@@ -1,12 +1,19 @@
 {
   "name": "canvasxpress",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": {
+    "type": "GPL-3.0-or-later",
+    "url": "https://www.gnu.org/licenses/gpl.html"
+  },
   "bin": {
     "canvasxpress": "bin/canvasxpress"
   },
-  "scripts": {},
-  "devDependencies": {},
+  "description" : "Node program to run CanvasXpress in the command line",
+  "repository" : {
+    "type" : "git",
+    "url": "https://github.com/neuhausi/canvasXpress-node.git"
+  },
+  "readme": "README.md",
   "dependencies": {
     "chalk": "^2.4.2",
     "clear": "^0.1.0",

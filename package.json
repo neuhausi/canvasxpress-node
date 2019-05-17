@@ -1,6 +1,6 @@
 {
   "name": "canvasxpress",
-  "version": "1.0.1",
+  "version": "24.0.0",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"
@@ -13,7 +13,21 @@
     "type" : "git",
     "url": "https://github.com/neuhausi/canvasXpress-node.git"
   },
-  "readme": "README.md",
+  "keywords": [
+    "bioinformatics",
+    "genomics",
+    "data",
+    "visualization",
+    "graph",
+    "reproducible",
+    "research",
+    "analytics"
+  ],
+  "author": "Isaac M. Neuhaus",
+  "bugs": {
+    "url": "https://github.com/neuhausi/canvasxpress/issues"
+  },
+  "homepage": "https://github.com/neuhausi/canvasxpress#readme"
   "dependencies": {
     "chalk": "^2.4.2",
     "clear": "^0.1.0",
@@ -22,4 +36,4 @@
     "ora": "^3.4.0",
     "puppeteer": "^1.15.0"
   }
-}
+}  

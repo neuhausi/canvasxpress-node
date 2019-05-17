@@ -1,13 +1,13 @@
 const ora = require('ora');
 const puppeteer = require('puppeteer');
 
-module.exports = async (input, output, test) => {
+module.exports = async (input, output) => {
   
 	const spinner = ora().start();
 
   try {
   	
-		const browser = await puppeteer.launch({ headless: test ? false : true, devtools: true });
+		const browser = await puppeteer.launch({ headless: false, devtools: true });
 		
 		const page = await browser.newPage();
 
@@ -24,7 +24,7 @@ module.exports = async (input, output, test) => {
 			for (var i = 0; i < cxs.length; i++) {
 			 	var cx = cxs[i];
 			 	var target = cx.target;
-			 	browser;
+			 	debugger;
 			 	cx.print(false, target + '.png');
 			};
 			

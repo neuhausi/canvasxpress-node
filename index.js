@@ -1,7 +1,19 @@
-const minimist = require('minimist')
+const minimist = require('minimist');
+const path = require('path');
+const chalk = require('chalk');
+const clear = require('clear');
+const figlet = require('figlet');
 
 module.exports = () => {
 
+	clear();
+	
+	console.log(
+	  chalk.green(
+	    figlet.textSync('CanvasXpress', { horizontalLayout: 'full' })
+	  )
+	);
+	
 	const args = minimist(process.argv.slice(2));
 
   let cmd = args._[0] || 'help';
@@ -59,7 +71,7 @@ module.exports = () => {
       break;
 
     case 'debug':
-    	require('./cmds/debug')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
+    	require('./cmds/debug')("file://" + __dirname + "/src/canvasXpress.html", "./src/");
     	break;
       
     default:

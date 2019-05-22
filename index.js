@@ -33,29 +33,15 @@ module.exports = () => {
   switch (cmd) {
 
     case 'png':
+    case 'svg':
+    case 'json':
     	if (input) {
-        require('./cmds/png')(input, output, args.debug || args.d);    		
+        require('./cmds/io')(cmd, input, output, args);    		
     	} else {
         require('./cmds/help')(args);    		
     	}
       break;
       
-    case 'svg':
-    	if (input) {
-        require('./cmds/svg')(input, output, args.debug || args.d);    		
-    	} else {
-        require('./cmds/help')(args);    		
-    	}
-      break;
-
-    case 'json':
-    	if (input) {
-        require('./cmds/json')(input, output, args.debug || args.d);    		
-    	} else {
-        require('./cmds/help')(args);    		
-    	}
-      break;
-
     case 'version':
       require('./cmds/version')(args);
       break;

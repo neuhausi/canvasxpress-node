@@ -18,6 +18,8 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
+    --width, -x .........[optional] image width
+    --height, -y ........[optional] image height
     --debug, -d ........ <switch> do not run headless and pause for debugging
     `,
 
@@ -28,6 +30,8 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
+    --width, -x .........[optional] image width
+    --height, -y ........[optional] image height
     --debug, -d ........ <switch> do not run headless and pause for debugging
     `,
     

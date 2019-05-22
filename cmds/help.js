@@ -7,7 +7,6 @@ const menus = {
     svg ................ create a svg file 
     json ............... create a json file 
     test ............... test package
-    debug .............. debug package
     version ............ show package version    
     help ............... show help menu for a command
     `,
@@ -19,6 +18,7 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
+    --debug, -d ........ <switch> do not run headless and pause for debugging
     `,
 
   svg: `
@@ -28,6 +28,7 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
+    --debug, -d ........ <switch> do not run headless and pause for debugging
     `,
     
   json: `
@@ -37,6 +38,7 @@ const menus = {
                          https://page/with/visualization.html
     --output, -o ....... [optional] directory path to save images
                          {default} './'
+    --debug, -d ........ <switch> do not run headless and pause for debugging
     `
 
 }

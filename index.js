@@ -34,7 +34,7 @@ module.exports = () => {
 
     case 'png':
     	if (input) {
-        require('./cmds/png')(input, output);    		
+        require('./cmds/png')(input, output, args.debug || args.d);    		
     	} else {
         require('./cmds/help')(args);    		
     	}
@@ -42,7 +42,7 @@ module.exports = () => {
       
     case 'svg':
     	if (input) {
-        require('./cmds/svg')(input, output);    		
+        require('./cmds/svg')(input, output, args.debug || args.d);    		
     	} else {
         require('./cmds/help')(args);    		
     	}
@@ -50,7 +50,7 @@ module.exports = () => {
 
     case 'json':
     	if (input) {
-        require('./cmds/json')(input, output);    		
+        require('./cmds/json')(input, output, args.debug || args.d);    		
     	} else {
         require('./cmds/help')(args);    		
     	}
@@ -70,10 +70,6 @@ module.exports = () => {
       require('./cmds/json')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
       break;
 
-    case 'debug':
-    	require('./cmds/debug')("file://" + __dirname + "/src/canvasXpress.html", "./src/");
-    	break;
-      
     default:
       console.error(`"${cmd}" is not a valid command!`);
       break;

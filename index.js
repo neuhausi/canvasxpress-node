@@ -32,7 +32,7 @@ module.exports = () => {
   
   switch (cmd) {
 
-  	//case 'csv':
+  	case 'csv':
   	case 'png':
     case 'svg':
     case 'json':

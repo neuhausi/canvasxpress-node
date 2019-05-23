@@ -20,7 +20,12 @@ const menus = {
     --output, -o ....... [optional] directory path to save images
                          {default} './'
     --width, -x ........ [optional] integer for image width
+                         {default} 800
     --height, -y ....... [optional] integer for image height
+                         {default} 800
+    --config, -c ....... [optional] json string with configuration for CanvasXpress
+    --timeout, -t ...... [optional] timeout in millisecods 
+                         {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
     `,
 

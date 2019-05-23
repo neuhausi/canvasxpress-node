@@ -16,6 +16,8 @@ module.exports = async (cmd, input, output, args) => {
 	const height = args.height || args.y
 	
 	const spinner = ora().start();
+	
+	const defhtml = ("file://" + __dirname + "/src/canvasXpress.html").replace('/cmds', '');
 
   try {
   	
@@ -27,41 +29,55 @@ module.exports = async (cmd, input, output, args) => {
 		
 		const page = await browser.newPage();
 
-		const iter = function (cmd, debug, args) {
+		const iter = function (cmd, input, debug, args) {
 		  if (debug) {
 		    debugger;
 		  }
-		  if (cmd == 'csv') {
-		  	
-		  } else {
-				var cxs = CanvasXpress.instances;
-				for (var i = 0; i < cxs.length; i++) {
-				 	var cx = cxs[i];
-				 	var target = cx.target;			 	
-				  switch (cmd) {
-				    case 'png':
-						 	cx.print(false, target + '.png');
-				    	break;
-				    case 'svg':
-						 	cx.saveSVG(false, target + '.svg');
-				    	break;
-				    case 'json':
-						 	cx.save(false, target + '.json');
-				    	break;
-				  }			 	
-				}
+			var cxs = CanvasXpress.instances;
+			for (var i = 0; i < cxs.length; i++) {
+			 	var cx = cxs[i];
+			 	var target = cx.target;			 	
+			  switch (cmd) {
+			    case 'csv':
+			    	var config = args.config || args.c;
+			    	try {
+				    	var conf = config ? JSON.parse(config) : false;
+				    	cx.dataURL = input;
+				    	cx.remoteTransitionEffect = 'none';
+				    	cx.getDataFromURL(target, conf, false, false, function(){
+				  			var cxs = CanvasXpress.instances;
+							 	var cx = cxs[cxs.length - 1];
+							 	var target = cx.target;			 	
+				    		cx.print(false, target + '.png');
+				    	});			    		
+			      } catch (err) {
+			      	spinner.stop()
+			        console.error(err);
+			      }
+			    	break;
+			    case 'png':
+					 	cx.print(false, target + '.png');
+			    	break;
+			    case 'svg':
+					 	cx.saveSVG(false, target + '.svg');
+			    	break;
+			    case 'json':
+					 	cx.save(false, target + '.json');
+			    	break;
+			  }			 	
 		  }
 		}
 		
 		const obj = {
 		  cmd: cmd,
+		  input: input,
 			debug: debug,
 			args: args,
 			fun: iter.toString()
 		}
 
 		const fun = function(o) {
-			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.debug, o.args);
+			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.input, o.debug, o.args);
 		}
 		
 		await page._client.send('Page.setDownloadBehavior', {
@@ -69,42 +85,14 @@ module.exports = async (cmd, input, output, args) => {
 		  downloadPath: output
 		});
 
-		if (cmd == 'csv') {
+		await page.goto(cmd == 'csv' ? defhtml : input);
 			
-			//const responses = [];
-
-			//page.on('response', resp => {
-			//  responses.push(resp);
-			//});
-
-			//page.on('load', () => {
-			//  responses.map(async (resp, i) => {
-			//    const request = await resp.request();
-			//    const url = new URL(request.url);
-			//    const split = url.pathname.split('/');
-			//    let filename = split[split.length - 1];
-			//    if (!filename.includes('.')) {
-			//      filename += '.html';
-			//    }
-			//    const buffer = await resp.buffer();
-			//    fs.writeFileSync(filename, buffer);
-			//  });
-			//});
-
-			//await page.goto("file://" + __dirname + "/src/canvasXpress.html", {waitUntil: 'networkidle'});
-			
-		} else {
-
-			await page.goto(input);
-			
-		}
-		
 		await page.evaluate( fun, obj );
-		
-		setTimeout(() => { 
+
+		await setTimeout(() => { 
 			browser.close(); 
 	    spinner.stop();
-		}, debug ? 3000 : 500);
+		}, debug ? 300000 : cmd == 'csv' ? 3000 : 500);
     
   } catch (err) {
 

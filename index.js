@@ -32,7 +32,8 @@ module.exports = () => {
   
   switch (cmd) {
 
-    case 'png':
+  	//case 'csv':
+  	case 'png':
     case 'svg':
     case 'json':
     	if (input) {
@@ -51,9 +52,9 @@ module.exports = () => {
       break;
   	
     case 'test':
-      require('./cmds/png')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
-      require('./cmds/svg')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
-      require('./cmds/json')("https://canvasxpress.org/html/bar-3.html", "./test/", true);
+      require('./cmds/io')("png", "https://canvasxpress.org/html/bar-3.html", "./test/", args);
+      require('./cmds/io')("svg", "https://canvasxpress.org/html/bar-3.html", "./test/", args);
+      require('./cmds/io')("json", "https://canvasxpress.org/html/bar-3.html", "./test/", args);
       break;
 
     default:

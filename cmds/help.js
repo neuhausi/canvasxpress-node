@@ -3,13 +3,13 @@ const menus = {
   main: `
     canvasxpress [command] <options>
 
-    png ................ create a png file from an existing file or url
-    svg ................ create a svg file from an existing file or url
-    json ............... create a json file from an existing file or url
-    csv ................ create a png file from a csv file in a file or url
-    test ............... test package
-    version ............ show package version    
-    help ............... show help menu for a command
+    png ................ create a png file from an existing CanvasXpress file or url
+    svg ................ create a svg file from an existing CanvasXpress file or url
+    json ............... create a json file from an existing CanvasXpress file or url
+    csv ................ create a CanvasXpress png file from a local csv file or url
+    test ............... test package. Creates images and json file in test directory
+    version ............ show this package version    
+    help ............... show this help. Add command to show correponding help
     `,
     
   csv: `
@@ -17,50 +17,91 @@ const menus = {
                          file:///path/to/local/file.csv
                          http://page/with/file.csv
                          https://page/with/file.csv
-    --output, -o ....... [optional] directory path to save images
+    --output, -o ....... [optional] directory path to save image
                          {default} './'
     --width, -x ........ [optional] integer for image width
                          {default} 800
     --height, -y ....... [optional] integer for image height
                          {default} 800
     --config, -c ....... [optional] json string with configuration for CanvasXpress
-    --timeout, -t ...... [optional] timeout in millisecods 
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
                          {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+
+    Examples:
+
+      canvasxpress csv -i ../src/ToothGrowth.csv -t 3000
+
+      canvasxpress csv -i https://raw.githubusercontent.com/neuhausi/Rdatasets/master/csv/datasets/ToothGrowth.csv
+        -t 3000
+    
+      canvasxpress csv -i file:///node/src/ToothGrownth.csv -c '{"graphType":"Boxplot","transposeData":true,
+        "asVariableFactors":["dose"],"stringSampleFactors":["dose"],"groupingFactors":["dose"]}'
+        -t 3000
     `,
 
   png: `
-    --input, -i ........ <required> file or url with CanvasXpress visualizations:
-                         file:///path/to/local/file.html
-                         http://page/with/visualization.html
-                         https://page/with/visualization.html
-    --output, -o ....... [optional] directory path to save images
+    --input, -i ........ <required> file or url with a csv file:
+                         file:///path/to/local/file.csv
+                         http://page/with/file.csv
+                         https://page/with/file.csv
+    --output, -o ....... [optional] directory path to save image
                          {default} './'
-    --width, -x ........ [optional] integer for image width
-    --height, -y ....... [optional] integer for image height
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
+                         {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+
+    Examples:
+
+      canvasxpress png -i https://canvasxpress.org/html/bar-3.html
+    
+      canvasxpress png -i file:///node/src/canvasXpress.html
+
+      canvasxpress png -i ../src/canvasXpress.html
     `,
 
   svg: `
-    --input, -i ........ <required> file or url with CanvasXpress visualizations:
-                         file:///path/to/local/file.html
-                         http://page/with/visualization.html
-                         https://page/with/visualization.html
-    --output, -o ....... [optional] directory path to save images
+    --input, -i ........ <required> file or url with a csv file:
+                         file:///path/to/local/file.csv
+                         http://page/with/file.csv
+                         https://page/with/file.csv
+    --output, -o ....... [optional] directory path to save image
                          {default} './'
-    --width, -x ........ [optional] integer for image width
-    --height, -y ....... [optional] integer for image height
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
+                         {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+
+    Examples:
+
+      canvasxpress svg -i https://canvasxpress.org/html/bar-3.html
+    
+      canvasxpress svg -i file:///node/src/canvasXpress.html
+
+      canvasxpress svg -i ../src/canvasXpress.html
     `,
     
   json: `
-    --input, -i ........ <required> file or url with CanvasXpress visualizations:
-                         file:///path/to/local/file.html
-                         http://page/with/visualization.html
-                         https://page/with/visualization.html
-    --output, -o ....... [optional] directory path to save images
+    --input, -i ........ <required> file or url with a csv file:
+                         file:///path/to/local/file.csv
+                         http://page/with/file.csv
+                         https://page/with/file.csv
+    --output, -o ....... [optional] directory path to save image
                          {default} './'
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
+                         {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+
+    Examples:
+
+      canvasxpress json -i https://canvasxpress.org/html/bar-3.html
+    
+      canvasxpress json -i file:///node/src/canvasXpress.html
+
+      canvasxpress json -i ../src/canvasXpress.html
     `
 
 }

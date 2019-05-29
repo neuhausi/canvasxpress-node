@@ -1,9 +1,6 @@
 const path = require('path');
 const ora = require('ora');
 const puppeteer = require('puppeteer');
-//const fs = require('fs');
-//const mime = require('mime');
-//const URL = require('url').URL;
 const isPkg = typeof process.pkg !== 'undefined';
 const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/puppeteer\/\.local-chromium/, path.join(path.dirname(process.execPath), 'chromium'));
 
@@ -11,25 +8,34 @@ module.exports = async (cmd, input, output, args) => {
   
 	const debug = args.debug || args.d;
 	
-	const width = args.width || args.x;
+	const width = args.width || args.x || 800;
 	
-	const height = args.height || args.y
+	const height = args.height || args.y || 800;	
+	
+	const tmout = args.timeout || args.t;
 	
 	const spinner = ora().start();
 	
 	const defhtml = ("file://" + __dirname + "/src/canvasXpress.html").replace('/cmds', '');
-
+	
   try {
   	
 		const browser = await puppeteer.launch({ 
 			headless: debug ? false : true,
 			devtools: debug ? true : false, 
-			executablePath: isPkg ? executablePath : puppeteer.executablePath()
+			executablePath: isPkg ? executablePath : puppeteer.executablePath(),
+			args: ['--no-sandbox',
+				     '--allow-file-access-from-files',
+				     '--enable-local-file-accesses']
 		});
 		
 		const page = await browser.newPage();
 
-		const iter = function (cmd, input, debug, args) {
+    if (!input.match(/^file|^http/)) {
+      input = "file://" + path.resolve(input);
+    }
+		
+		const iter = function (cmd, input, debug, args, width, height) {
 		  if (debug) {
 		    debugger;
 		  }
@@ -39,8 +45,9 @@ module.exports = async (cmd, input, output, args) => {
 			 	var target = cx.target;			 	
 			  switch (cmd) {
 			    case 'csv':
-			    	var config = args.config || args.c;
+			    	cx.setDimensions(width, height);
 			    	try {
+			    		var config = args.config || args.c;
 				    	var conf = config ? JSON.parse(config) : false;
 				    	cx.dataURL = input;
 				    	cx.remoteTransitionEffect = 'none';
@@ -51,7 +58,6 @@ module.exports = async (cmd, input, output, args) => {
 				    		cx.print(false, target + '.png');
 				    	});			    		
 			      } catch (err) {
-			      	spinner.stop()
 			        console.error(err);
 			      }
 			    	break;
@@ -73,11 +79,13 @@ module.exports = async (cmd, input, output, args) => {
 		  input: input,
 			debug: debug,
 			args: args,
-			fun: iter.toString()
+			fun: iter.toString(),
+			width: width,
+			height: height
 		}
 
 		const fun = function(o) {
-			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.input, o.debug, o.args);
+			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.input, o.debug, o.args, o.width, o.height);
 		}
 		
 		await page._client.send('Page.setDownloadBehavior', {
@@ -92,11 +100,9 @@ module.exports = async (cmd, input, output, args) => {
 		await setTimeout(() => { 
 			browser.close(); 
 	    spinner.stop();
-		}, debug ? 300000 : cmd == 'csv' ? 3000 : 500);
+		}, cmd == 'csv' ? tmout + 2500 : tmout);
     
   } catch (err) {
-
-  	spinner.stop()
 
     console.error(err);
   	

@@ -30,21 +30,23 @@ module.exports = async (args) => {
 
 	const skip = args.skip || args.n;
 	
+	const index = "https://www.canvasxpress.org/html/index.html";
+	
 	try {
+
+		const browser = await puppeteer.launch({ 
+			headless: debug ? false : true,
+			devtools: debug ? true : false, 
+			executablePath: isPkg ? executablePath : puppeteer.executablePath(),
+			args: ['--no-sandbox',
+						 '--allow-file-access-from-files',
+						 '--enable-local-file-accesses']
+		});
+
+		const page = await browser.newPage();
 
 		if (!skip) {
 			
-			const browser = await puppeteer.launch({ 
-				headless: debug ? false : true,
-				devtools: debug ? true : false, 
-				executablePath: isPkg ? executablePath : puppeteer.executablePath(),
-				args: ['--no-sandbox',
-							 '--allow-file-access-from-files',
-							 '--enable-local-file-accesses']
-			});
-
-			const page = await browser.newPage();
-
 			let result;
 
 			await page.goto(index);
@@ -61,22 +63,20 @@ module.exports = async (args) => {
 				}
 			}
 
-			await setTimeout(() => { 
-				browser.close(); 
-		    spinner.stop();
-			}, tmout);
-			
-		} else {
-			
-	    spinner.stop();			
-			
 		}
 		
-		const directory = ( __dirname + "images/ex").replace('node/canvas/scripts', '');
+		await setTimeout(() => { 
+			browser.close(); 
+	    spinner.stop();
+		}, tmout);
+			
+		const buildDir = ( __dirname + "html").replace('node/canvas/scripts', '');
 		
-		fs.readdir(directory, function(err, items) {
+		const currentDir = ( __dirname + "current").replace('scripts', '');
+		
+		fs.readdir(buildDir, function(err, items) {
 	    for (var i=0; i<items.length; i++) {
-	      console.log(directory + '/' + items[i]);
+	      console.log(buildDir + '/' + items[i] + '   ' + currentDir + '/' + items[i]);
 	    }
 	  });
 

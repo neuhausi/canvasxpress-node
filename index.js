@@ -42,7 +42,9 @@ module.exports = () => {
         require('./cmds/help')(args);    		
     	}
       break;
-      
+    case 'script':
+      require(path.resolve(input).split('.').slice(0, -1).join('.'))(args);
+      break;
     case 'version':
       require('./cmds/version')(args);
       break;

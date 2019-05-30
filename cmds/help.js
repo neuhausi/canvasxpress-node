@@ -7,10 +7,15 @@ const menus = {
     svg ................ create a svg file from an existing CanvasXpress file or url
     json ............... create a json file from an existing CanvasXpress file or url
     csv ................ create a CanvasXpress png file from a local csv file or url
+    script ............. run a javascript file that uses this module
     test ............... test package. Creates images and json file in test directory
     version ............ show this package version    
     help ............... show this help. Add command to show correponding help
     `,
+  
+  script: `
+    --input, -i ........ <required> path/to/js/file
+  `,
     
   csv: `
     --input, -i ........ <required> file or url with a csv file:

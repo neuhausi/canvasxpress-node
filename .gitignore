@@ -2,3 +2,6 @@ build/
 node_modules/
 .project
 .DS_Store
+canvas/build
+canvas/current
+canvas/logs

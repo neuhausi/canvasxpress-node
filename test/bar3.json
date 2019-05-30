@@ -1,5 +1,5 @@
 {
-  "version": 23.9,
+  "version": 24.2,
   "renderTo": "bar3",
   "data": {
     "y": {
@@ -24,18 +24,18 @@
     "decorations": {
       "marker": [
         {
-          "fontSize": 12,
-          "variable": "Variable1",
           "sample": "Sample1",
+          "type": "annotation",
           "text": "p < 0.01 ***",
-          "type": "annotation"
+          "fontSize": 12,
+          "variable": "Variable1"
         },
         {
-          "text": "p < 0.05 **",
-          "fontSize": 12,
-          "sample": "Sample2",
           "variable": "Variable1",
-          "type": "annotation"
+          "fontSize": 12,
+          "type": "annotation",
+          "sample": "Sample2",
+          "text": "p < 0.05 **"
         }
       ]
     },
@@ -55,15 +55,15 @@
       ]
     ]
   ],
-  "client": "MTU1NjkxNDY0MjY2Mzo6MTo6MjMuOTo6",
+  "client": "MTU1OTIzMDIyNDI2MTo6MTo6MjQuMjo6",
   "clientIP": {
     "country": "United States",
-    "longitude": -74.9535,
+    "longitude": -74.7909,
     "continentCode": "NA",
-    "postal": "18940",
+    "postal": "08534",
     "countryCode": "US",
-    "city": "Newtown",
+    "city": "Pennington",
     "continent": "North America",
-    "latitude": 40.2647
+    "latitude": 40.3338
   }
 }

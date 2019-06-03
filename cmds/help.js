@@ -7,14 +7,26 @@ const menus = {
     svg ................ create a svg file from an existing CanvasXpress file or url
     json ............... create a json file from an existing CanvasXpress file or url
     csv ................ create a CanvasXpress png file from a local csv file or url
-    script ............. run a javascript file that uses this module
+    canvas ............. run scripts files to test CanvasXpres
     test ............... test package. Creates images and json file in test directory
     version ............ show this package version    
     help ............... show this help. Add command to show correponding help
     `,
   
-  script: `
+  canvas: `
     --input, -i ........ <required> path/to/js/file
+    --skip, -s ......... [optional] skip download
+    --graph, -g ........ [optional] graph name
+    --number, -n ....... [optional] number for the graph
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
+                         {default} 500
+    --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+    Examples:
+
+      canvasxpress canvas -i canvas/scripts/compareImages.js -s
+
+      canvasxpress canvas -i canvas/scripts/compareImages.js -s -g violin -n 11
   `,
     
   csv: `
@@ -33,7 +45,6 @@ const menus = {
                          {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
     
-
     Examples:
 
       canvasxpress csv -i ../src/ToothGrowth.csv -t 3000
@@ -47,17 +58,16 @@ const menus = {
     `,
 
   png: `
-    --input, -i ........ <required> file or url with a csv file:
-                         file:///path/to/local/file.csv
-                         http://page/with/file.csv
-                         https://page/with/file.csv
+    --input, -i ........ <required> file or url with a html file:
+                         file:///path/to/local/file.html
+                         http://page/with/file.html
+                         https://page/with/file.html
     --output, -o ....... [optional] directory path to save image
                          {default} './'
     --timeout, -t ...... [optional] timeout in millisecods to close browser
                          {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
     
-
     Examples:
 
       canvasxpress png -i https://canvasxpress.org/html/bar-3.html
@@ -68,17 +78,16 @@ const menus = {
     `,
 
   svg: `
-    --input, -i ........ <required> file or url with a csv file:
-                         file:///path/to/local/file.csv
-                         http://page/with/file.csv
-                         https://page/with/file.csv
+    --input, -i ........ <required> file or url with a html file:
+                         file:///path/to/local/file.html
+                         http://page/with/file.html
+                         https://page/with/file.html
     --output, -o ....... [optional] directory path to save image
                          {default} './'
     --timeout, -t ...... [optional] timeout in millisecods to close browser
                          {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
     
-
     Examples:
 
       canvasxpress svg -i https://canvasxpress.org/html/bar-3.html
@@ -89,17 +98,16 @@ const menus = {
     `,
     
   json: `
-    --input, -i ........ <required> file or url with a csv file:
-                         file:///path/to/local/file.csv
-                         http://page/with/file.csv
-                         https://page/with/file.csv
+    --input, -i ........ <required> file or url with a html file:
+                         file:///path/to/local/file.html
+                         http://page/with/file.html
+                         https://page/with/file.html
     --output, -o ....... [optional] directory path to save image
                          {default} './'
     --timeout, -t ...... [optional] timeout in millisecods to close browser
                          {default} 500
     --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
     
-
     Examples:
 
       canvasxpress json -i https://canvasxpress.org/html/bar-3.html

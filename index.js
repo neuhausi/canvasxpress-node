@@ -42,7 +42,7 @@ module.exports = () => {
         require('./cmds/help')(args);    		
     	}
       break;
-    case 'script':
+    case 'canvas':
       require(path.resolve(input).split('.').slice(0, -1).join('.'))(args);
       break;
     case 'version':

@@ -93,7 +93,7 @@ module.exports = async (cmd, input, output, args) => {
 			height: height
 		}
 
-		const fun = function(o) {
+		const func = function(o) {
 			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.input, o.output, o.debug, o.args, o.width, o.height);
 		}
 		
@@ -104,7 +104,7 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : input);
 			
-		await page.evaluate( fun, obj );
+		await page.evaluate( func, obj );
 
 		await setTimeout(() => { 
 			browser.close(); 

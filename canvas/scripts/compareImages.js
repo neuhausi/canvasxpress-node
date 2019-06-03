@@ -57,20 +57,20 @@ module.exports = async (args) => {
 
 		const page = await browser.newPage();
 		
-		const compare = function (sit, cur, dif) {
-	    var img1 = fs.createReadStream(sit).pipe(new PNG()).on('parsed', doneReading);
-	    var img2 = fs.createReadStream(cur).pipe(new PNG()).on('parsed', doneReading);
-	    var filesRead = 0;
-	    function doneReading() {
-	      if (++filesRead < 2) {
-	    	  return;
-	      }
-	      var diff = new PNG({width: img1.width, height: img1.height});
-	      var pixl = pixelmatch(img1.data, img2.data, diff.data, img1.width, img1.height, {threshold: 0.1}, true);
-	      diff.pack().pipe(fs.createWriteStream(dif));
-	      console.log(dif + ": " + pixl + " different");
-	    }
+		const compare = function(sit, cur, dif) {
+ 			var img1 = readImage(cur, function () {
+        var img2 = readImage(sit, function () {
+          var diff = new PNG({width: img1.width, height: img1.height});
+          var pixl = pixelmatch(img1.data, img2.data, diff.data, img1.width, img1.height, {threshold: 0.1}, true);
+          diff.pack().pipe(fs.createWriteStream(dif));
+  	      console.log(dif + ": " + pixl + " different");
+        });
+      });					
 		}
+		
+		const readImage = function (p, f) {
+      return fs.createReadStream(p).pipe(new PNG()).on('parsed', f);
+	  }
 		
 		await page.goto(index);
 
@@ -79,6 +79,30 @@ module.exports = async (args) => {
 		for ( let i = 0; i < images.length; i++ ) {
 			var tst = path.basename(images[i]).replace(/-/g, '');
 			var inp = buildDir + '/' + path.basename(images[i]);
+		  if (graph) {
+		   	if (number) {
+		   		if (!tst.match(graph + number)) {
+		   			continue;
+		   		}	    		
+		   	} else {
+		   		if (!tst.match(graph)) {
+		   			continue;
+		   		}
+		   	}
+		  }
+      // Build / Current image
+      await require('../../cmds/io')("png", inp, outDir, args);
+      // Site image
+      await require('../../cmds/io')("png", images[i], currentDir, args);
+		}
+		
+	  await setTimeout(() => { 
+	  	browser.close(); 
+	    spinner.stop();
+		}, tmout);
+
+	  for ( let i = 0; i < images.length; i++ ) {
+			var tst = path.basename(images[i]).replace(/-/g, '');
 			var sit = currentDir + '/' + path.basename(images[i]).replace(/-/g, '').replace('.html', '.png');
 			var cur = outDir + '/' + path.basename(images[i]).replace(/-/g, '').replace('.html', '.png');			
 	    var dif = cur.replace('.png', '.diff.png');
@@ -93,18 +117,9 @@ module.exports = async (args) => {
 		   		}
 		   	}
 		  }
-      // Site image
-      await require('../../cmds/io')("png", images[i], currentDir, args);
-      // Build / Current image
-      await require('../../cmds/io')("png", inp, outDir, args);
       // Compare pages
       await compare(sit, cur, dif);
-		}
-		
-	  await setTimeout(() => { 
-	  	browser.close(); 
-	    spinner.stop();
-		}, tmout);
+		}  
 		
 	} catch (err) {
 

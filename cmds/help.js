@@ -7,6 +7,7 @@ const menus = {
     svg ................ create a svg file from an existing CanvasXpress file or url
     json ............... create a json file from an existing CanvasXpress file or url
     csv ................ create a CanvasXpress png file from a local csv file or url
+    reproduce .......... create CanvasXpress png files from a local file or url
     canvas ............. run scripts files to test CanvasXpres
     test ............... test package. Creates images and json file in test directory
     version ............ show this package version    
@@ -55,6 +56,26 @@ const menus = {
       canvasxpress csv -i file:///node/src/ToothGrownth.csv -c '{"graphType":"Boxplot","transposeData":true,
         "asVariableFactors":["dose"],"stringSampleFactors":["dose"],"groupingFactors":["dose"]}'
         -t 3000
+    `,
+
+  reproduce: `
+    --input, -i ........ <required> file or url with a html file:
+                         file:///path/to/local/file.html
+                         http://page/with/file.html
+                         https://page/with/file.html
+    --output, -o ....... [optional] directory path to save image
+                         {default} './'
+    --timeout, -t ...... [optional] timeout in millisecods to close browser
+                         {default} 500
+    --debug, -d ........ [optional] boolean to do not run headless and pause for debugging
+    
+    Examples:
+
+      canvasxpress reproduce -i https://canvasxpress.org/html/layout-7.html
+    
+      canvasxpress reproduce -i file:///node/src/canvasXpress.html
+
+      canvasxpress reproduce -i ../src/canvasXpress.html
     `,
 
   png: `

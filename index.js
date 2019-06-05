@@ -36,6 +36,7 @@ module.exports = () => {
   	case 'png':
     case 'svg':
     case 'json':
+    case 'reproduce':
     	if (input) {
         require('./cmds/io')(cmd, input, output, args);    		
     	} else {

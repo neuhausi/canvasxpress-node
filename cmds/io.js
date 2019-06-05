@@ -24,6 +24,10 @@ module.exports = async (cmd, input, output, args) => {
 			headless: debug ? false : true,
 			devtools: debug ? true : false, 
 			executablePath: isPkg ? executablePath : puppeteer.executablePath(),
+			defaultViewport: {
+				width: 1000,
+				height: 1000
+			},
 			args: ['--no-sandbox',
 				     '--allow-file-access-from-files',
 				     '--enable-local-file-accesses']
@@ -39,7 +43,7 @@ module.exports = async (cmd, input, output, args) => {
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
 		console.log("Creating " + msg + " file from " + input + " ("  + output + "/" + out + ")");
 
-		const iter = function (cmd, input, output, debug, args, width, height) {
+		const iter = (cmd, input, output, debug, args, width, height) => {
 		  if (debug) {
 		    debugger;
 		  }
@@ -75,6 +79,9 @@ module.exports = async (cmd, input, output, args) => {
 				    case 'json':
 						 	cx.save(false, target + '.json');
 				    	break;
+				    case 'reproduce':
+						 	cx.reproduce(false, true, true);
+				    	break;
 				  }			 	
 			  }
 		  } catch (err) {
@@ -104,8 +111,8 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : input);
 			
-		await page.evaluate( func, obj );
-
+		await page.evaluate( func, obj );	
+		
 		await setTimeout(() => { 
 			browser.close(); 
 	    spinner.stop();

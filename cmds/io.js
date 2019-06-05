@@ -39,6 +39,10 @@ module.exports = async (cmd, input, output, args) => {
       input = "file://" + path.resolve(input);
     }
 		
+    const getCmd = function() {
+    	return cmd;
+    }
+    
 	  var msg = (cmd == 'csv' ? 'png' : cmd);
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
 		console.log("Creating " + msg + " file from " + input + " ("  + output + "/" + out + ")");
@@ -47,45 +51,42 @@ module.exports = async (cmd, input, output, args) => {
 		  if (debug) {
 		    debugger;
 		  }
-		  try {
-				var cxs = CanvasXpress.instances;
-				for (var i = 0; i < cxs.length; i++) {
-				 	var cx = cxs[i];
-				 	var target = cx.target;			 	
-				  switch (cmd) {
-				    case 'csv':
-				    	cx.setDimensions(width, height);
-				    	try {
-				    		var config = args.config || args.c;
-					    	var conf = config ? JSON.parse(config) : false;
-					    	cx.dataURL = input;
-					    	cx.remoteTransitionEffect = 'none';
-					    	cx.getDataFromURL(target, conf, false, false, function(){
-					  			var cxs = CanvasXpress.instances;
-								 	var cx = cxs[cxs.length - 1];
-								 	var target = cx.target;			 	
-					    		cx.print(false, target + '.png');
-					    	});			    		
-				      } catch (err) {
-				        console.error(err);
-				      }
-				    	break;
-				    case 'png':
-						 	cx.print(false, target + '.png');
-				    	break;
-				    case 'svg':
-						 	cx.saveSVG(false, target + '.svg');
-				    	break;
-				    case 'json':
-						 	cx.save(false, target + '.json');
-				    	break;
-				    case 'reproduce':
-						 	cx.reproduce(false, true, true);
-				    	break;
-				  }			 	
-			  }
-		  } catch (err) {
-				console.log(err);
+		  var foo = getCmd();
+  		var cxs = CanvasXpress.instances;
+			for (var i = 0; i < cxs.length; i++) {
+			 	var cx = cxs[i];
+			 	var target = cx.target;			 	
+			  switch (cmd) {
+			    case 'csv':
+			    	cx.setDimensions(width, height);
+			    	try {
+			    		var config = args.config || args.c;
+				    	var conf = config ? JSON.parse(config) : false;
+				    	cx.dataURL = input;
+				    	cx.remoteTransitionEffect = 'none';
+				    	cx.getDataFromURL(target, conf, false, false, function(){
+				  			var cxs = CanvasXpress.instances;
+							 	var cx = cxs[cxs.length - 1];
+							 	var target = cx.target;			 	
+				    		cx.print(false, target + '.png');
+				    	});			    		
+			      } catch (err) {
+			        console.error(err);
+			      }
+			    	break;
+			    case 'png':
+					 	cx.print(false, target + '.png');
+			    	break;
+			    case 'svg':
+					 	cx.saveSVG(false, target + '.svg');
+			    	break;
+			    case 'json':
+					 	cx.save(false, target + '.json');
+			    	break;
+			    case 'reproduce':
+					 	cx.reproduce(false, true, true);
+			    	break;
+			  }			 	
 		  }
 		}
 		
@@ -111,7 +112,9 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : input);
 			
-		await page.evaluate( func, obj );	
+		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready);
+
+		await page.evaluate( func, obj );
 		
 		await setTimeout(() => { 
 			browser.close(); 

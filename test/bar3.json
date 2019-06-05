@@ -49,13 +49,13 @@
     [
       "setDimensions",
       [
-        450,
-        450,
+        562,
+        562,
         true
       ]
     ]
   ],
-  "client": "MTU1OTY2MjU4ODAyNDo6MTo6MjQuMjo6",
+  "client": "MTU1OTc0Mjc5MzAxNzo6MTo6MjQuMjo6",
   "clientIP": {
     "country": "United States",
     "longitude": -74.7909,

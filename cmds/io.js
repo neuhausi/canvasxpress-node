@@ -39,10 +39,6 @@ module.exports = async (cmd, input, output, args) => {
       input = "file://" + path.resolve(input);
     }
 		
-    const getCmd = function() {
-    	return cmd;
-    }
-    
 	  var msg = (cmd == 'csv' ? 'png' : cmd);
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
 		console.log("Creating " + msg + " file from " + input + " ("  + output + "/" + out + ")");
@@ -51,7 +47,6 @@ module.exports = async (cmd, input, output, args) => {
 		  if (debug) {
 		    debugger;
 		  }
-		  var foo = getCmd();
   		var cxs = CanvasXpress.instances;
 			for (var i = 0; i < cxs.length; i++) {
 			 	var cx = cxs[i];

@@ -105,7 +105,7 @@ module.exports = async (cmd, input, output, args) => {
 		  downloadPath: output
 		});
 
-		await page.goto(cmd == 'csv' ? defhtml : input);
+		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
 			
 		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready);
 
@@ -114,7 +114,7 @@ module.exports = async (cmd, input, output, args) => {
 		await setTimeout(() => { 
 			browser.close(); 
 	    spinner.stop();
-		}, cmd == 'csv' ? tmout + 2500 : tmout);
+		}, cmd == 'csv' || cmd == 'reproduce' ? tmout + 2500 : tmout);
 		
   } catch (err) {
 

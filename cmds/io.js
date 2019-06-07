@@ -1,10 +1,20 @@
+const util = require('util');
 const path = require('path');
+const fs = require('fs');
 const ora = require('ora');
 const puppeteer = require('puppeteer');
 const isPkg = typeof process.pkg !== 'undefined';
 const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/puppeteer\/\.local-chromium/, path.join(path.dirname(process.execPath), 'chromium'));
 
 module.exports = async (cmd, input, output, args) => {
+	
+	const dirname = process.argv[1].replace('/bin/canvasxpress', '');
+	
+	const today = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '');
+	
+	const logFile = fs.createWriteStream((dirname + '/logs/io-' + today + '.log'), {flags : 'a'});
+
+	const logStdout = process.stdout;
   
 	const debug = args.debug || args.d;
 	
@@ -15,8 +25,14 @@ module.exports = async (cmd, input, output, args) => {
 	const tmout = args.timeout || args.t || 500;
 	
 	const spinner = ora().start();
+
+	const defhtml = ("file://" + dirname + "/src/canvasXpress.html");
 	
-	const defhtml = ("file://" + __dirname + "/src/canvasXpress.html").replace('/cmds', '');
+	console.log = function () {
+	  logFile.write(util.format.apply(null, arguments) + '\n');
+	  logStdout.write(util.format.apply(null, arguments) + '\n');
+	}
+	console.error = console.log;
 	
   try {
   	
@@ -41,7 +57,7 @@ module.exports = async (cmd, input, output, args) => {
 		
 	  var msg = (cmd == 'csv' ? 'png' : cmd);
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
-		console.log("Creating " + msg + " file from " + input + " ("  + output + "/" + out + ")");
+		console.log("Creating " + msg + " file from " + input + " ("  + (output + "/" + out).replace('//', '/') + ")");
 
 		const iter = (cmd, input, output, debug, args, width, height) => {
 		  if (debug) {
@@ -106,10 +122,10 @@ module.exports = async (cmd, input, output, args) => {
 		});
 
 		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
-			
-		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready);
+		
+		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
 
-		await page.evaluate( func, obj );
+		await page.evaluate( `(${func.toString()})(${JSON.stringify(obj)})` );
 		
 		await setTimeout(() => { 
 			browser.close(); 

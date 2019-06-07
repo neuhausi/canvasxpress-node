@@ -16,7 +16,7 @@ const menus = {
   
   canvas: `
     --input, -i ........ <required> path/to/js/file
-    --skip, -s ......... [optional] skip download
+    --directory, -f .... [optional] directory of CanvasXpres version to check
     --graph, -g ........ [optional] graph name
     --number, -n ....... [optional] number for the graph
     --timeout, -t ...... [optional] timeout in millisecods to close browser
@@ -25,9 +25,9 @@ const menus = {
     
     Examples:
 
-      canvasxpress canvas -i canvas/scripts/compareImages.js -s
+      canvasxpress canvas -i canvas/scripts/compareImages.js
 
-      canvasxpress canvas -i canvas/scripts/compareImages.js -s -g violin -n 11
+      canvasxpress canvas -i canvas/scripts/compareImages.js -g violin -n 11
   `,
     
   csv: `

@@ -1,6 +1,6 @@
 {
   "name": "canvasxpress",
-  "version": "24.3.0",
+  "version": "24.3.3",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"
@@ -8,9 +8,9 @@
   "bin": {
     "canvasxpress": "bin/canvasxpress"
   },
-  "description": "Node program to run CanvasXpress in the command line",
-  "repository": {
-    "type": "git",
+  "description" : "Node program to run CanvasXpress in the command line",
+  "repository" : {
+    "type" : "git",
     "url": "https://github.com/neuhausi/canvasXpress-node.git"
   },
   "keywords": [
@@ -34,8 +34,6 @@
     "figlet": "^1.2.1",
     "minimist": "^1.2.0",
     "ora": "^3.4.0",
-    "pixelmatch": "^4.0.2",
-    "pngjs": "^3.4.0",
     "puppeteer": "^1.15.0"
   }
-}
+}  

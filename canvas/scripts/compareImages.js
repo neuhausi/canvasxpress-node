@@ -1,6 +1,6 @@
+const util = require('util');
 const path = require('path');
 const fs = require('fs');
-const https = require('https');
 const ora = require('ora');
 const puppeteer = require('puppeteer');
 const pixelmatch = require('pixelmatch');
@@ -8,41 +8,41 @@ const PNG = require('pngjs').PNG;
 const isPkg = typeof process.pkg !== 'undefined';
 const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/puppeteer\/\.local-chromium/, path.join(path.dirname(process.execPath), 'chromium'));
 
-const download  = ( url, destination ) => new Promise( ( resolve, reject ) => {
-	const file = fs.createWriteStream( destination );
-	https.get( url, response => {
-		response.pipe( file );
-		file.on( 'finish', () => {
-			file.close( resolve( true ) );
-		});
-	})
-	.on( 'error', error => {
-		fs.unlink( destination );
-		reject( error.message );
-	});
-});
-
 module.exports = async (args) => {
 
+	const dirname = process.argv[1].replace('/bin/canvasxpress', '');
+	
+	const today = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '');
+	
+	const logFile = fs.createWriteStream((dirname + '/logs/compareImages-' + today + '.log'), {flags : 'a'});
+	
+	const logStdout = process.stdout;
+  
 	const debug = args.debug || args.d;
 
 	const tmout = args.timeout || args.t;
 
 	const spinner = ora().start();
 
-	const skip = args.skip || args.s;
-	
 	const graph = args.graph || args.g || false;
 	
 	const number = args.number || args.n || false;
 	
+	const directory = args.directory || args.f;
+	
 	const index = "https://www.canvasxpress.org/html/index.html";
 	
-	const buildDir = ( __dirname + "html").replace('node/canvas/scripts', '');
+  const buildDir = directory || (dirname + "html").replace('node', '');
 	
-	const currentDir = ( __dirname + "site").replace('scripts', '');
+	const currentDir = ( dirname + "/canvas/site");
 
 	const outDir = currentDir.replace('site', 'build');
+
+	console.log = function () {
+	  logFile.write(util.format.apply(null, arguments) + '\n');
+	  logStdout.write(util.format.apply(null, arguments) + '\n');
+	}
+	console.error = console.log;
 
 	try {
 
@@ -73,8 +73,10 @@ module.exports = async (args) => {
 	  }
 		
 		await page.goto(index);
+		
+		const func = () => Array.from( document.getElementsByClassName('thumbnail'), a => a.href );
 
-		const images = await page.evaluate( () => Array.from( document.getElementsByClassName('thumbnail'), a => a.href ) );
+		const images = await page.evaluate( `(${func.toString()})()` );
 		
 		for ( let i = 0; i < images.length; i++ ) {
 			var tst = path.basename(images[i]).replace(/-/g, '');

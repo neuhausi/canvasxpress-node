@@ -1,8 +1,7 @@
 build/
+logs/
 node_modules/
 .project
 .DS_Store
 canvas/build
 canvas/site
-canvas/current
-canvas/logs

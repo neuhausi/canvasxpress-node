@@ -26,13 +26,16 @@ node_modules/canvasxpress/bin/canvasxpress help
 
     canvasxpress [command] <options>
 
-    png ................ create a png file
-    svg ................ create a svg file
-    json ............... create a json file
-    test ............... test package
-    debug .............. debug package
-    version ............ show package version
-    help ............... show help menu for a command
+    png ................ create a png file from an existing CanvasXpress file or url
+    svg ................ create a svg file from an existing CanvasXpress file or url
+    json ............... create a json file from an existing CanvasXpress file or url
+    csv ................ create a CanvasXpress png file from a local csv file or url
+    reproduce .......... create CanvasXpress png files from a local file or url
+    canvas ............. run scripts files to test CanvasXpres
+    test ............... test package. Creates images and json file in test directory
+    version ............ show this package version
+    help ............... show this help. Add command to show correponding help
+
 ```
 CanvasXpress Homepage
 ----------------------

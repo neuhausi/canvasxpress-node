@@ -27,6 +27,12 @@
   "bugs": {
     "url": "https://github.com/neuhausi/canvasxpress/issues"
   },
+  "pkg": {
+    "assets": [
+      "node_modules/figlet/fonts/*",
+      "logs/*"
+    ]
+  },
   "homepage": "https://github.com/neuhausi/canvasxpress#readme",
   "dependencies": {
     "chalk": "^2.4.2",

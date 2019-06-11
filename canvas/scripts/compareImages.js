@@ -10,7 +10,8 @@ const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/p
 
 module.exports = async (args) => {
 
-	const dirname = process.argv[1].replace('/bin/canvasxpress', '');
+	const dirname = process.cwd().replace('/bin/canvasxpress', '');
+	//const dirname = process.argv[1].replace('/bin/canvasxpress', '');
 	
 	const today = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '');
 	

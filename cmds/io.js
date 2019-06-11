@@ -8,7 +8,8 @@ const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/p
 
 module.exports = async (cmd, input, output, args) => {
 	
-	const dirname = process.argv[1].replace('/bin/canvasxpress', '');
+	const dirname = process.cwd().replace('/bin/canvasxpress', '');
+	//const dirname = process.argv[1].replace('/bin/canvasxpress', '');
 	
 	const today = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '');
 	
@@ -123,7 +124,7 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
 		
-		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
+		//await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
 
 		await page.evaluate( `(${func.toString()})(${JSON.stringify(obj)})` );
 		

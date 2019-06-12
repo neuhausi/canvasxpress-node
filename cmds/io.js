@@ -59,7 +59,7 @@ module.exports = async (cmd, input, output, args) => {
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
 		console.log("Creating " + msg + " file from " + input + " ("  + (output + "/" + out).replace('//', '/') + ")");
 
-		const func = (o) => {
+		const func = function(o) {
 			var debug = o.debug;
 		  if (debug) {
 		    debugger;
@@ -119,7 +119,7 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
 		
-		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
+		//await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
 
 		await page.evaluate( `(${func.toString()})(${JSON.stringify(obj)})` );
 		

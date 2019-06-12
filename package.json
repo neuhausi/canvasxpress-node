@@ -8,9 +8,9 @@
   "bin": {
     "canvasxpress": "bin/canvasxpress"
   },
-  "description" : "Node program to run CanvasXpress in the command line",
-  "repository" : {
-    "type" : "git",
+  "description": "Node program to run CanvasXpress in the command line",
+  "repository": {
+    "type": "git",
     "url": "https://github.com/neuhausi/canvasXpress-node.git"
   },
   "keywords": [
@@ -37,9 +37,9 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "clear": "^0.1.0",
-    "figlet": "^1.2.1",
+    "figlet": "^1.2.3",
     "minimist": "^1.2.0",
     "ora": "^3.4.0",
-    "puppeteer": "^1.15.0"
+    "puppeteer": "^1.17.0"
   }
-}  
+}

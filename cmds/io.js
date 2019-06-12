@@ -8,8 +8,7 @@ const executablePath = puppeteer.executablePath().replace(/^.*?\/node_modules\/p
 
 module.exports = async (cmd, input, output, args) => {
 	
-	const dirname = process.cwd().replace('/bin/canvasxpress', '');
-	//const dirname = process.argv[1].replace('/bin/canvasxpress', '');
+	const dirname = isPkg ? process.argv[0].replace(/\/build\/canvasxpress.*$/, '') : process.argv[1].replace('/bin/canvasxpress', '');
 	
 	const today = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '');
 	
@@ -60,21 +59,23 @@ module.exports = async (cmd, input, output, args) => {
 	  var out = path.basename(input).replace(/-/g, '').replace('.html', '.' + cmd);
 		console.log("Creating " + msg + " file from " + input + " ("  + (output + "/" + out).replace('//', '/') + ")");
 
-		const iter = (cmd, input, output, debug, args, width, height) => {
+		const func = (o) => {
+			var debug = o.debug;
 		  if (debug) {
 		    debugger;
 		  }
+			var cmd = o.cmd;
   		var cxs = CanvasXpress.instances;
 			for (var i = 0; i < cxs.length; i++) {
 			 	var cx = cxs[i];
 			 	var target = cx.target;			 	
 			  switch (cmd) {
 			    case 'csv':
-			    	cx.setDimensions(width, height);
+			    	cx.setDimensions(o.width, o.height);
 			    	try {
-			    		var config = args.config || args.c;
+			    		var config = o.args.config || o.args.c;
 				    	var conf = config ? JSON.parse(config) : false;
-				    	cx.dataURL = input;
+				    	cx.dataURL = o.input;
 				    	cx.remoteTransitionEffect = 'none';
 				    	cx.getDataFromURL(target, conf, false, false, function(){
 				  			var cxs = CanvasXpress.instances;
@@ -105,18 +106,12 @@ module.exports = async (cmd, input, output, args) => {
 		const obj = {
 		  cmd: cmd,
 		  input: input,
-		  output: output,
 			debug: debug,
 			args: args,
-			fun: iter.toString(),
 			width: width,
 			height: height
 		}
 
-		const func = function(o) {
-			return new Function(' return (' + o.fun + ').apply(null, arguments)').call(null, o.cmd, o.input, o.output, o.debug, o.args, o.width, o.height);
-		}
-		
 		await page._client.send('Page.setDownloadBehavior', {
 		  behavior: 'allow', 
 		  downloadPath: output
@@ -124,7 +119,7 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
 		
-		//await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
+		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
 
 		await page.evaluate( `(${func.toString()})(${JSON.stringify(obj)})` );
 		

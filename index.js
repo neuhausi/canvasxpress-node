@@ -30,7 +30,7 @@ module.exports = () => {
     cmd = 'help';
   } 
   
-  switch (cmd) {
+	switch (cmd) {
 
   	case 'csv':
   	case 'png':

@@ -119,7 +119,7 @@ module.exports = async (cmd, input, output, args) => {
 
 		await page.goto(cmd == 'csv' ? defhtml : cmd = 'reproduce' ? input + '?showTransition=false' : input);
 		
-		//await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
+		await page.waitFor( () => typeof(CanvasXpress) !== undefined && CanvasXpress.ready );
 
 		await page.evaluate( `(${func.toString()})(${JSON.stringify(obj)})` );
 		

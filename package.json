@@ -1,6 +1,6 @@
 {
   "name": "canvasxpress",
-  "version": "24.4.4",
+  "version": "24.5.1",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"
@@ -23,7 +23,7 @@
     "research",
     "analytics"
   ],
-  "author": "Isaac M. Neuhaus",
+  "author":  "Isaac M. Neuhaus",
   "bugs": {
     "url": "https://github.com/neuhausi/canvasxpress/issues"
   },

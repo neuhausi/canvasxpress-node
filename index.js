@@ -8,20 +8,12 @@ module.exports = () => {
 	
 	const args = minimist(process.argv.slice(2));
 
-  let cmd = args._[0] || 'help';
+  let cmd = args._[0];
 
   let input = args.input || args.i || false;
   
   let output = args.output || args.o || "./";
-  
-  let target = args.target || args.t || false;
-  
-  let data = args.data || args.d || false;
-  
-  let config = args.config || args.c || false;
-  
-  let events = args.events || args.e || false;
-  
+    
   if (args.version || args.v) {
     cmd = 'version';
   }
@@ -30,7 +22,7 @@ module.exports = () => {
     cmd = 'help';
   } 
   
-  if (target && data && config) {
+  if (!cmd) {
   	cmd = 'process';
   }
   
@@ -75,7 +67,7 @@ module.exports = () => {
       break;
 
     case 'process':
-    	console.error('Coming soon!');
+    	require('./cmds/process')(args);
     	break;
       
     default:

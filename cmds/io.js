@@ -28,6 +28,10 @@ module.exports = async (cmd, input, output, args) => {
 
 	const defhtml = ("file://" + dirname + "/src/canvasXpress.html");
 	
+	if (!fs.existsSync(dirname + '/logs')) {
+		fs.mkdirSync(dirname + '/logs');
+	}
+	
 	console.log = function () {
 	  logFile.write(util.format.apply(null, arguments) + '\n');
 	  logStdout.write(util.format.apply(null, arguments) + '\n');

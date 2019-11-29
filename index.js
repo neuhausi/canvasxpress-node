@@ -5,14 +5,6 @@ const clear = require('clear');
 const figlet = require('figlet');
 
 module.exports = () => {
-
-	clear();
-	
-	console.log(
-	  chalk.green(
-	    figlet.textSync('CanvasXpress', { horizontalLayout: 'full' })
-	  )
-	);
 	
 	const args = minimist(process.argv.slice(2));
 
@@ -22,6 +14,14 @@ module.exports = () => {
   
   let output = args.output || args.o || "./";
   
+  let target = args.target || args.t || false;
+  
+  let data = args.data || args.d || false;
+  
+  let config = args.config || args.c || false;
+  
+  let events = args.events || args.e || false;
+  
   if (args.version || args.v) {
     cmd = 'version';
   }
@@ -29,6 +29,20 @@ module.exports = () => {
   if (args.help || args.h) {
     cmd = 'help';
   } 
+  
+  if (target && data && config) {
+  	cmd = 'process';
+  }
+  
+  if (cmd != 'process') {
+  	clear();
+  	
+  	console.log(
+  	  chalk.green(
+  	    figlet.textSync('CanvasXpress', { horizontalLayout: 'full' })
+  	  )
+  	); 	
+  }
   
 	switch (cmd) {
 
@@ -60,6 +74,10 @@ module.exports = () => {
       require('./cmds/io')("json", "https://canvasxpress.org/html/bar-3.html", "./test/", args);
       break;
 
+    case 'process':
+    	console.error('Coming soon!');
+    	break;
+      
     default:
       console.error(`"${cmd}" is not a valid command!`);
       break;

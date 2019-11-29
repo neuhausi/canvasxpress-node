@@ -136,7 +136,23 @@ const menus = {
       canvasxpress json -i file:///node/src/canvasXpress.html
 
       canvasxpress json -i ../src/canvasXpress.html
-    `
+    `,
+    
+  target: `
+
+  `,
+  
+  data: `
+  
+  `,
+  
+  config: `
+  
+  `,
+  
+  events: `
+  
+  `,
 
 }
 

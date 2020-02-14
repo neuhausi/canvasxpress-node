@@ -1,14 +1,14 @@
 {
-  "name": "canvasxpress-cli",
-  "version": "26.3.25",
+  "name": "canvasxpress",
+  "main": "src/canvasXpress.js",
+  "style": "src/canvasXpress.css",
+  "title": "CanvasXpress",
+  "version": "26.9.4",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"
   },
-  "bin": {
-    "canvasxpress": "bin/canvasxpress"
-  },
-  "description" : "Node program to run CanvasXpress in the command line",
+  "description" : "Program to run canvasXpress with node",
   "repository" : {
     "type" : "git",
     "url": "https://github.com/neuhausi/canvasXpress-node.git"
@@ -28,12 +28,5 @@
     "url": "https://github.com/neuhausi/canvasxpress/issues"
   },
   "homepage": "https://github.com/neuhausi/canvasxpress#readme",
-  "dependencies": {
-    "chalk": "^2.4.2",
-    "clear": "^0.1.0",
-    "figlet": "^1.2.1",
-    "minimist": "^1.2.0",
-    "ora": "^3.4.0",
-    "puppeteer": "^1.15.0"
-  }
+  "dependencies": {}
 }  

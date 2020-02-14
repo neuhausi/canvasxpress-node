@@ -286,6 +286,7 @@ div.cxc {
 
 .json-key {
   color: #d73027;
+  font-weight: bold;
 }
 .json-value {
   color: #4575b4;
@@ -307,7 +308,7 @@ div.CanvasXpressCode {
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	cursor: move;
 	color: rgb(34, 34, 34);
 	font: normal 12px arial, tahoma, sans-serif;
@@ -347,21 +348,22 @@ img.CanvasXpressCode:hover {
 }
 
 pre.CanvasXpressCode {
-	text-align: left;
-	padding: inherit;
-	margin: inherit;
-	font-size: inherit;
-	line-height: inherit;
-	color: inherit;
-	word-break: inherit;
-	word-wrap: inherit;
-	background-color: inherit;
-	border: none;
-	border-radius: inherit;
+  text-align: left;
+  padding: inherit;
+  margin: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  word-break: inherit;
+  word-wrap: inherit;
+  background-color: inherit;
+  border: none;
+  border-radius: inherit;
+  counter-reset: line;
 }
 
 div.CanvasXpressCodeContainer {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	box-sizing: content-box;
 	clear: both;
 	max-height: 500px;
@@ -370,25 +372,47 @@ div.CanvasXpressCodeContainer {
 }
 
 div.CanvasXpressCodeContent {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	box-sizing: content-box;
 	margin: 2px 3px;
 	padding: 2px 3px;
 }
 
 pre.CanvasXpressCodeContent {
-	background-color: rgba(245, 245, 245, 0.95);
-	border: none;
-	margin: 0px;
-	padding: 10px;
-	white-space: pre;
-	font-size: inherit;
-	line-height: inherit;
-	color: inherit;
-	word-break: inherit;
-	word-wrap: inherit;
-	border-radius: inherit;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #eee;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: pre;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  border-radius: inherit;
 }
+
+pre.CanvasXpressCodeContent:before {
+  counter-reset: listing;
+}
+
+pre.CanvasXpressCodeContent code {
+  counter-increment: listing;
+  white-space: inherit;
+  line-height: 1.5;
+}
+
+pre.CanvasXpressCodeContent code::before {
+  content: counter(listing) " ";
+  display: inline-block;
+  width: 3em; /* Fixed width */
+  border-right: 1px solid #ddd;
+  padding-left: auto;
+  margin-left: auto;
+  text-align: right;
+  /*color: #888;*/
+  background-color: #efefef;
+  -webkit-user-select: none;
+}
+
 /*
  * Carousel
  */
@@ -419,7 +443,7 @@ span.CanvasXpressCarousel {
 div.CanvasXpressCarouselCell {
   position: absolute;
   transition: transform 1s, opacity 1s;
-  background-color: rgba(245, 245, 245, 0.95);
+  background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgb(51, 122, 183);
   border-radius: 5px;
   backface-visibility : hidden;
@@ -475,7 +499,7 @@ img.CanvasXpressCarousel:hover {
 div.CanvasXpressBin {
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	box-sizing: content-box;
 	cursor: move;
 	color: rgb(34, 34, 34);
@@ -521,7 +545,7 @@ img.CanvasXpressBin:hover {
 
 
 div.CanvasXpressBinContainer {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	box-sizing: content-box;
 	clear: both;
 	text-align: left;
@@ -532,7 +556,7 @@ div.CanvasXpressBinContainer {
 }
 
 div.CanvasXpressBinNameContainer {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgb(51, 122, 183);
   border-radius: 5px;
   box-sizing: content-box;
@@ -819,7 +843,7 @@ div.CanvasXpressDrag {
 	opacity: 0.75;
 	box-sizing: content-box;
 	filter: alpha(opacity = 75);
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	position: absolute;
 }
 
@@ -834,7 +858,7 @@ div.CanvasXpressDragLayout {
 div.CanvasXpressTooltip {
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	box-sizing: content-box;
 	cursor: move;
 	color: rgb(34, 34, 34);
@@ -851,7 +875,7 @@ div.CanvasXpressTooltipArrowLeft {
   position: absolute;
   height: 0;
   width: 0;
-  background: rgba(245, 245, 245, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgb(51, 122, 183);
   z-index: 1;
 }
@@ -911,7 +935,7 @@ img.CanvasXpressTooltip:hover {
 span.CanvasXpressTooltip {
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	cursor: move;
 	color: rgb(34, 34, 34);
 	font: normal 12px arial, tahoma, sans-serif;
@@ -1057,7 +1081,7 @@ div.CanvasXpressMarker {
 	box-sizing: content-box;
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	color: rgb(34, 34, 34);
 	cursor: move;
 	font: normal 12px arial, tahoma, sans-serif;
@@ -1080,10 +1104,6 @@ div.CanvasXpressMarker {
 
 div.CanvasXpressToolbar {
 
-}
-
-div.CanvasXpressToolbar img.CanvasXpressToolbarImage:first-child {
-	margin-left: 13px !important;
 }
 
 div.CanvasXpressToolbar img.CanvasXpressToolbarImage {
@@ -1129,7 +1149,7 @@ div.CanvasXpressDataTable {
 	box-sizing: content-box;
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	clear: both;
 	color: rgb(34, 34, 34);
 	font: normal 12px arial, tahoma, sans-serif;
@@ -1145,7 +1165,7 @@ div.CanvasXpressDataTableToolbar {
 	box-sizing: content-box;
 	border: 0px;
 	border-radius: 5px 5px 0px 0px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	color: rgb(34, 34, 34);
 	cursor: move;
 	font: normal 12px arial, tahoma, sans-serif;
@@ -1210,7 +1230,7 @@ div.CanvasXpressDataTableContainer {
 
 div.CanvasXpressDataTableVertical {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: absolute;
@@ -1226,7 +1246,7 @@ div.CanvasXpressDataTableVertical {
 
 div.CanvasXpressDataTableHorizontal {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	bottom: 8px;
 	height: 32px;
 	left: 32px;
@@ -1242,7 +1262,7 @@ div.CanvasXpressDataTableHorizontal {
 
 div.CanvasXpressDataTableResizer {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	background-image:
 		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAR0lEQVR42pXPQQoAIAhEUb25nrwyKIpMndkJz8VnAtbGGMGqSqWHhW3pw4lFhBnBYYOHvw0/7DZE+GnI8NVQwbuhimcDgu3uM5KV++8QfCcAAAAASUVORK5CYII=);
 	background-repeat: no-repeat;
@@ -1434,7 +1454,7 @@ div.CanvasXpressTableCellSortDesc {
 /****************/
 div.CanvasXpressConfigurator {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 5px;
 	border: 1px solid rgb(51, 122, 183);
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -1461,7 +1481,7 @@ span.CanvasXpressConfigurator {
 }
 
 textarea.CanvasXpressConfigurator {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 5px;
 	border: 1px solid rgb(51, 122, 183);
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -1527,7 +1547,7 @@ div.CanvasXpressConfiguratorOptions {
 
 div.CanvasXpressConfiguratorFilter {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 5px;
 	border: 1px solid rgb(51, 122, 183);
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -1547,7 +1567,7 @@ input.CanvasXpressConfiguratorFilter {
 
 div.CanvasXpressConfiguratorExample {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 5px;
 	border: 1px solid rgb(51, 122, 183);
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -1704,7 +1724,7 @@ div.CanvasXpressDataFilter {
 
 div.CanvasXpressDataFilterToolbar {
 	box-sizing: content-box;
-  background: linear-gradient(rgb(240, 240, 240), rgb(230,230,230));
+    /*background: linear-gradient(rgb(240, 240, 240), rgb(230,230,230));*/
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 4px;
 	color: rgb(34, 34, 34);
@@ -1970,7 +1990,7 @@ div.CanvasXpressDataFilterContainerRange {
 }
 
 input.CanvasXpressDataFilterContainerMinValue {
-	border: 1px solid rgba(245, 245, 245, 0.95);
+	border: 1px solid rgba(255, 255, 255, 0.95);
 	color: rgb(51, 122, 183);
 	float: left;
 	font: normal 12px arial, tahoma, sans-serif;
@@ -1981,7 +2001,7 @@ input.CanvasXpressDataFilterContainerMinValue {
 }
 
 input.CanvasXpressDataFilterContainerMaxValue {
-	border: 1px solid rgba(245, 245, 245, 0.95);
+	border: 1px solid rgba(255, 255, 255, 0.95);
 	color: rgb(51, 122, 183);
 	float: right;
 	font: normal 12px arial, tahoma, sans-serif;
@@ -2023,7 +2043,7 @@ select.CanvasXpressDataFilterContainerString {
 
 div.CanvasXpressDataFilterHead {
 	box-sizing: content-box;
-  background: linear-gradient(rgb(240, 240, 240), rgb(230,230,230));
+    /*background: linear-gradient(rgb(240, 240, 240), rgb(230,230,230));*/
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 4px;
 	color: rgb(34, 34, 34);
@@ -2194,7 +2214,7 @@ div.CanvasXpressDataFilterContainerItem::selection {
 
 div.CanvasXpressLink {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	background-image:
 		url(data:image/gif;base64,R0lGODlh+gABAIcAAOLj4/Dw8P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAP8ALAAAAAD6AAEAAAgfAAMIHEiwoMGBAAQcXMiwocOHECNKnEixosWLGCMGBAA7);
 	background-repeat: repeat-y;
@@ -2294,7 +2314,7 @@ input:checked.CanvasXpressTabMenuConfigurator+section.CanvasXpressTabMenuConfigu
 
 div.CanvasXpressMenu {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 3px;
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -2665,7 +2685,7 @@ img.CanvasXpressToolbarHelp:hover {
 
 div.CanvasXpressToolbarHelp {
 	box-sizing: content-box;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 5px;
 	border: 1px solid rgb(51, 122, 183);
 	box-shadow: rgba(154, 154, 154, 0.2) 3px 3px;
@@ -2693,7 +2713,7 @@ div.CanvasXpressForm {
 	box-sizing: content-box;
 	border: 1px solid rgb(51, 122, 183);
 	border-radius: 5px;
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	color: rgb(34, 34, 34);
 	cursor: move;
 	font: normal 12px arial, tahoma, sans-serif;
@@ -2725,7 +2745,7 @@ input.CanvasXpressFormButton {
 }
 
 input.CanvasXpressFormButtonActive {
-	background-color: rgba(245, 245, 245, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
 	background-image:
 		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAeCAYAAADtlXTHAAAAFklEQVR42mN89fnvf0aSiBvPf9GaAABVL3D5nF6uqAAAAABJRU5ErkJggg==);
 	background-repeat: repeat-x;

@@ -2968,7 +2968,7 @@ canvas.CanvasXpress::selection {
 }
 
 div.CanvasXpressPlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.1);
   background-image: url(/assets/images/play.png);
   background-position-x: 50%;
   background-position-y: center;

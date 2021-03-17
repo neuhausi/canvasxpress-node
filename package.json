@@ -3,7 +3,7 @@
   "main": "src/canvasXpress.js",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "32.7.83",
+  "version": "32.7.84",
   "license": {
     "type": "GPL-3.0-or-later",
     "url": "https://www.gnu.org/licenses/gpl.html"

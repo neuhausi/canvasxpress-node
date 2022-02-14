@@ -3,10 +3,10 @@
   "main": "src/canvasXpress.js",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "37.4.13",
+  "version": "37.5.65",
   "license": {
-    "type": "GPL-3.0-or-later",
-    "url": "https://www.gnu.org/licenses/gpl.html"
+    "type": "Dual licensing",
+    "url": "https://www.canvasxpress.org/docs/license.html"
   },
   "description" : "Program to run canvasXpress with node",
   "repository" : {

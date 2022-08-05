@@ -3,7 +3,7 @@
   "main": "src/canvasXpress.js",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "39.3.17",
+  "version": "39.4.23",
   "license": {
     "type": "Dual licensing",
     "url": "https://www.canvasxpress.org/docs/license.html"
@@ -29,4 +29,4 @@
   },
   "homepage": "https://github.com/neuhausi/canvasxpress#readme",
   "dependencies": {}
-}  
+}

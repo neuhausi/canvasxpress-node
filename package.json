@@ -3,7 +3,7 @@
   "main": "src/canvasXpress.js",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "47.9.16",
+  "version": "47.9.17",
   "license": {
     "type": "Dual licensing",
     "url": "https://www.canvasxpress.org/docs/license.html"

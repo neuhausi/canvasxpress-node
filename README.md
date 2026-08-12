@@ -1,7 +1,9 @@
 CanvasXpress
 ============
 
-Node program to use CanvasXpress
+CanvasXpress data-visualization library (browser bundle) for use with JavaScript bundlers such as webpack and vite.
+
+Note: this package is the CanvasXpress library itself — it renders to an HTML `<canvas>` and is meant to be bundled into a web app, not executed standalone under Node.
 
 
 Installation

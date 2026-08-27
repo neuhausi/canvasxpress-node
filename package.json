@@ -4,7 +4,7 @@
   "types": "src/canvasXpress.d.ts",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "66.5.0",
+  "version": "66.7.0",
   "license": {
     "type": "Dual licensing",
     "url": "https://www.canvasxpress.org/docs/license.html"

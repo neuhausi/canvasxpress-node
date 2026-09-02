@@ -4,10 +4,10 @@
   "types": "src/canvasXpress.d.ts",
   "style": "src/canvasXpress.css",
   "title": "CanvasXpress",
-  "version": "67.4.0",
+  "version": "67.5.0",
   "license": {
     "type": "Dual licensing",
-    "url": "https://www.canvasxpress.org/docs/license.html"
+    "url": "https://www.canvasxpress.org/license.html"
   },
   "description" : "CanvasXpress data-visualization library (browser bundle) for use with JavaScript bundlers such as webpack and vite",
   "repository" : {

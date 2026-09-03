@@ -1,14 +1,27 @@
 {
   "name": "canvasxpress",
   "main": "src/canvasXpress.js",
+  "module": "src/canvasXpress.mjs",
   "types": "src/canvasXpress.d.ts",
   "style": "src/canvasXpress.css",
-  "title": "CanvasXpress",
-  "version": "67.5.0",
-  "license": {
-    "type": "Dual licensing",
-    "url": "https://www.canvasxpress.org/license.html"
+  "exports": {
+    ".": {
+      "types": "./src/canvasXpress.d.ts",
+      "import": "./src/canvasXpress.mjs",
+      "require": "./src/canvasXpress.js",
+      "default": "./src/canvasXpress.js"
+    },
+    "./style": "./src/canvasXpress.css",
+    "./package.json": "./package.json"
   },
+  "title": "CanvasXpress",
+  "version": "67.6.0",
+  "license": "SEE LICENSE IN LICENSE",
+  "files": [
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
   "description" : "CanvasXpress data-visualization library (browser bundle) for use with JavaScript bundlers such as webpack and vite",
   "repository" : {
     "type" : "git",

@@ -6,8 +6,9 @@ License steward: license@canvasxpress.org
 Full terms and pricing: https://www.canvasxpress.org/license.html
 
 This license governs the CanvasXpress JavaScript library. The CanvasXpress
-packages for R and Python are licensed separately under LGPL-3.0-or-later and
-are NOT subject to the attribution or mark-suppression terms below.
+package for R is licensed separately under GPL-3 and the CanvasXpress package
+for Python separately under MIT; neither is subject to the attribution or
+mark-suppression terms below.
 
 --------------------------------------------------------------------------------
 SUMMARY (non-binding)
@@ -91,9 +92,10 @@ See https://www.canvasxpress.org/license.html. The numbered terms govern.
    termination.
 
 6. RELATIONSHIP TO OTHER CANVASXPRESS DISTRIBUTIONS
-   This License covers only the JavaScript Software. The CanvasXpress packages for
-   R and Python are licensed separately under LGPL-3.0-or-later and are not subject
-   to the attribution or Mark-suppression terms here.
+   This License covers only the JavaScript Software. The CanvasXpress package for
+   R is licensed separately under GPL-3 and the CanvasXpress package for Python
+   separately under MIT; neither is subject to the attribution or Mark-suppression
+   terms here.
 
 7. WARRANTY DISCLAIMER AND LIMITATION OF LIABILITY
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR

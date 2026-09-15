@@ -6,16 +6,21 @@
   "style": "src/canvasXpress.css",
   "exports": {
     ".": {
-      "types": "./src/canvasXpress.d.ts",
-      "import": "./src/canvasXpress.mjs",
-      "require": "./src/canvasXpress.js",
+      "import": {
+        "types": "./src/canvasXpress.d.mts",
+        "default": "./src/canvasXpress.mjs"
+      },
+      "require": {
+        "types": "./src/canvasXpress.d.ts",
+        "default": "./src/canvasXpress.js"
+      },
       "default": "./src/canvasXpress.js"
     },
     "./style": "./src/canvasXpress.css",
     "./package.json": "./package.json"
   },
   "title": "CanvasXpress",
-  "version": "68.8.0",
+  "version": "68.9.0",
   "license": "SEE LICENSE IN LICENSE",
   "files": [
     "src",

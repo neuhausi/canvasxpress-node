@@ -131,7 +131,7 @@ declare namespace CanvasXpress {
 
   /**
    * Full chart configuration — one property per parameter in the CanvasXpress
-   * config schema (1687 keys). String enums become open literal
+   * config schema (1691 keys). String enums become open literal
    * unions (except `graphType`, which is closed); `@graphTypes` in a key's JSDoc
    * lists the graph types it applies to (absent = all). The index signature keeps
    * obfuscation aliases and any newer key valid. See `CXConfigFor<G>` for the
@@ -4054,11 +4054,26 @@ declare namespace CanvasXpress {
      */
     lineDecoration?: string | boolean;
     /**
+     * Name of the attribute to set the line style (solid, dashed, dotted, etc.) of the edges
+     * @graphTypes Network
+     * @default false
+     */
+    lineEdgeBy?: string | boolean;
+    /**
      * Line error type in the line graphs. The line type must be spline for the area error type.
      * @graphTypes Area, AreaLine, BarLine, DotLine, Line, ParallelCoordinates … (9 types; see CXGraphTypeKeys)
      * @default "bar"
      */
     lineErrorType?: "bar" | "area" | false | (string & {});
+    /**
+     * Object to assign custom line styles (solid, dashed, dotted, dotdash, longdash, twodash) to
+     * the levels of a Network edge attribute used with lineEdgeBy. The key of the object is a
+     * value of the attribute; a default line style will be assigned to any value not included in
+     * the object
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    lineKey?: Record<string, unknown> | boolean;
     /**
      * Line Patterns used in line visualizations
      * @default ["solid","dotted","dashed","dotdash","longdash","twodash"]
@@ -7143,6 +7158,12 @@ declare namespace CanvasXpress {
      */
     showLegendTitle?: boolean;
     /**
+     * Flag to show/hide the legend edge line style
+     * @graphTypes Bar, BarLine, Boxplot, Bullet, Cleveland, DotLine … (19 types; see CXGraphTypeKeys)
+     * @default true
+     */
+    showLineEdgeLegend?: boolean;
+    /**
      * Flag to show/hide the legend line
      * @graphTypes Bar, BarLine, Boxplot, Bullet, Cleveland, DotLine … (19 types; see CXGraphTypeKeys)
      * @default true
@@ -8786,6 +8807,16 @@ declare namespace CanvasXpress {
      * @default "rgb(153,153,153)"
      */
     waterfallNetColor?: string | boolean;
+    /**
+     * Name of a sample annotation (data.x) or variable (data.y.vars) whose per-sample value
+     * weighs that sample in count-type summaries: Meter count/countTotal, the meterProgress ring
+     * (selected/total by weight) and pieBy slices. Default false weighs every sample 1, a plain
+     * count. The dual of grouping: it expands one sample into many without materializing them (R
+     * count(wt=), ggplot aes(weight=))
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    weightBy?: string | boolean;
     /**
      * Color for the accent elements in all the UI widgets. It only applied if the dataUIStyle is
      * set to false
@@ -10658,7 +10689,8 @@ declare namespace CanvasXpress {
     | "groupingFactors"
     | "groupingFactorsLabelsHide"
     | "summaryType"
-    | "transposeData";
+    | "transposeData"
+    | "weightBy";
   /** Config keys in the "Data Context" category. */
   export type CXKeysDataContext =
     | "asSampleFactors"
@@ -10731,6 +10763,7 @@ declare namespace CanvasXpress {
     | "labelBy"
     | "labelSelect"
     | "lineBy"
+    | "lineKey"
     | "markerBy"
     | "outlineBy"
     | "outlineByData"
@@ -11346,6 +11379,7 @@ declare namespace CanvasXpress {
     | "showLegend"
     | "showLegendBorder"
     | "showLegendTitle"
+    | "showLineEdgeLegend"
     | "showLineLegend"
     | "showOutlineLegend"
     | "showPatternLegend"
@@ -11583,6 +11617,7 @@ declare namespace CanvasXpress {
   export type CXKeysNetworkNodeandEdgeAttributes =
     | "colorEdgeBy"
     | "colorNodeBy"
+    | "lineEdgeBy"
     | "maxEdgeSize"
     | "minEdgeSize"
     | "patternNodeBy"

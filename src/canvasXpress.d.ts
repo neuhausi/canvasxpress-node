@@ -131,7 +131,7 @@ declare namespace CanvasXpress {
 
   /**
    * Full chart configuration — one property per parameter in the CanvasXpress
-   * config schema (1691 keys). String enums become open literal
+   * config schema (1692 keys). String enums become open literal
    * unions (except `graphType`, which is closed); `@graphTypes` in a key's JSDoc
    * lists the graph types it applies to (absent = all). The index signature keeps
    * obfuscation aliases and any newer key valid. See `CXConfigFor<G>` for the
@@ -1456,6 +1456,18 @@ declare namespace CanvasXpress {
      * @default 1
      */
     dataPointSizeScaleFactor?: number | boolean;
+    /**
+     * Declarative, serializable data selection layer authored on top of the DataFilters engine
+     * (an authoring sugar that de-sugars into filterSmpBy / filterVarBy / filterDataBy — not a
+     * second filter engine). A single object, or an ARRAY of named { name, active, ... } blocks
+     * (the active/first is applied; switch at runtime with applyNamedDataSelection). A block has
+     * keys samples / variables / values; each is { any: [...] } (OR) or { all: [...] } (AND),
+     * and a leaf is { annotation, op, value } where op uses friendly vocab (min, max, exact,
+     * like, not like, between, different). Example: { samples: { all: [ { annotation:
+     * "Treatment", op: "exact", value: ["Control"] } ] } }
+     * @default false
+     */
+    dataSelection?: Record<string, unknown> | unknown[] | boolean | string | number;
     /**
      * Color for the the brand of the data table. Used wherever a non-neutral color is required.
      * Selections, focus outlines and checkboxes use the accent color by default
@@ -4873,7 +4885,7 @@ declare namespace CanvasXpress {
      */
     nodeBaseline?: "top" | "middle" | "bottom" | false | (string & {});
     /**
-     * Color for the nodes
+     * Color for the text in node
      * @graphTypes Network
      * @default "rgb(245,245,245)"
      */
@@ -7284,7 +7296,7 @@ declare namespace CanvasXpress {
      */
     showRegressionFullRange?: boolean;
     /**
-     * Flag to show/hide the legend sample. Not implemented!!!!!
+     * Flag to show/hide the legend sample
      * @graphTypes Bar, BarLine, Boxplot, Bullet, Cleveland, DotLine … (19 types; see CXGraphTypeKeys)
      * @default true
      */
@@ -10731,6 +10743,7 @@ declare namespace CanvasXpress {
     | "dataFilterTextColor"
     | "dataFilterToolbarBackgroundColor"
     | "dataFilterWidth"
+    | "dataSelection"
     | "filterData"
     | "filterDataBy"
     | "filterEdgeBy"

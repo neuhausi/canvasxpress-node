@@ -20,7 +20,7 @@
     "./package.json": "./package.json"
   },
   "title": "CanvasXpress",
-  "version": "69.9.1",
+  "version": "70.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "files": [
     "src",
@@ -30,7 +30,7 @@
   "description" : "CanvasXpress data-visualization library (browser bundle) for use with JavaScript bundlers such as webpack and vite",
   "repository" : {
     "type" : "git",
-    "url": "https://github.com/neuhausi/canvasXpress-node.git"
+    "url": "git+https://github.com/neuhausi/canvasXpress-node.git"
   },
   "keywords": [
     "bioinformatics",

@@ -20,7 +20,7 @@
     "./package.json": "./package.json"
   },
   "title": "CanvasXpress",
-  "version": "70.0.0",
+  "version": "70.1.0",
   "license": "SEE LICENSE IN LICENSE",
   "files": [
     "src",

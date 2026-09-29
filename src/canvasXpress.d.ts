@@ -132,7 +132,7 @@ declare namespace CanvasXpress {
 
   /**
    * Full chart configuration — one property per parameter in the CanvasXpress
-   * config schema (1701 keys). String enums become open literal
+   * config schema (1702 keys). String enums become open literal
    * unions (except `graphType`, which is closed); `@graphTypes` in a key's JSDoc
    * lists the graph types it applies to (absent = all). The index signature keeps
    * obfuscation aliases and any newer key valid. See `CXConfigFor<G>` for the
@@ -8970,6 +8970,13 @@ declare namespace CanvasXpress {
      */
     widgetsStripedColor?: string | boolean;
     /**
+     * Light or dark UI widgets (toolbar, menus, Customizer, data table and filters, dialogs).
+     * theme follows the chart theme (cxdark and cxblue are dark, auto follows the OS) and
+     * otherwise the page container, e.g. a dark dashboard; auto follows the OS appearance
+     * @default "theme"
+     */
+    widgetsTheme?: "theme" | "light" | "dark" | "auto" | false | (string & {});
+    /**
      * Factor to adjust the width of the graph elements in one-dimensional and three-dimensional
      * plots. The greater the number, the wider the elements
      * @default 1
@@ -11013,7 +11020,8 @@ declare namespace CanvasXpress {
     | "widgetsIconClsBColor"
     | "widgetsIconClsCColor"
     | "widgetsIconClsXColor"
-    | "widgetsStripedColor";
+    | "widgetsStripedColor"
+    | "widgetsTheme";
   /** Config keys in the "Debug" category. */
   export type CXKeysDebug =
     | "codeType"

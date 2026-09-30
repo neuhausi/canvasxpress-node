@@ -7065,8 +7065,8 @@ declare namespace CanvasXpress {
      */
     showDataLabels?: boolean;
     /**
-     * Flag to show/hide the data values in the bar graphs, stacked graphs, dotplots and line
-     * graphs
+     * Flag to show/hide the data values in the bar graphs, stacked graphs, dotplots, line graphs
+     * and Sankey node labels
      * @graphTypes Area, AreaLine, Bar, BarLine, Boxplot, Bullet … (31 types; see CXGraphTypeKeys)
      * @default false
      */

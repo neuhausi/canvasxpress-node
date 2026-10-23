@@ -6009,9 +6009,9 @@ declare namespace CanvasXpress {
     /**
      * Locale-aware number format for the tick values in the R axis. Overrides numberFormat for
      * this axis; an explicit rAxisTickFormat takes precedence over it. It could be a preset name
-     * (comma, percent, dollar, euro, pound, yen, compact), a sprintf format string, or an
-     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact", "currency":
-     * "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
+     * (comma, percent, dollar, euro, pound, yen, compact, auto), a sprintf format string, or an
+     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact|auto",
+     * "currency": "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
      * @graphTypes Circular
      * @default false
      */
@@ -10044,9 +10044,9 @@ declare namespace CanvasXpress {
     /**
      * Locale-aware number format for the tick values in the X axis. Overrides numberFormat for
      * this axis; an explicit xAxisTickFormat takes precedence over it. It could be a preset name
-     * (comma, percent, dollar, euro, pound, yen, compact), a sprintf format string, or an
-     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact", "currency":
-     * "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
+     * (comma, percent, dollar, euro, pound, yen, compact, auto), a sprintf format string, or an
+     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact|auto",
+     * "currency": "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
      * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
      * @default false
      */
@@ -10532,9 +10532,9 @@ declare namespace CanvasXpress {
     /**
      * Locale-aware number format for the tick values in the Y axis. Overrides numberFormat for
      * this axis; an explicit yAxisTickFormat takes precedence over it. It could be a preset name
-     * (comma, percent, dollar, euro, pound, yen, compact), a sprintf format string, or an
-     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact", "currency":
-     * "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
+     * (comma, percent, dollar, euro, pound, yen, compact, auto), a sprintf format string, or an
+     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact|auto",
+     * "currency": "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
      * @graphTypes Bin, Binplot, CDF, Contour, Density, Distribution … (21 types; see CXGraphTypeKeys)
      * @default false
      */
@@ -10939,9 +10939,9 @@ declare namespace CanvasXpress {
     /**
      * Locale-aware number format for the tick values in the Z axis. Overrides numberFormat for
      * this axis; an explicit zAxisTickFormat takes precedence over it. It could be a preset name
-     * (comma, percent, dollar, euro, pound, yen, compact), a sprintf format string, or an
-     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact", "currency":
-     * "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
+     * (comma, percent, dollar, euro, pound, yen, compact, auto), a sprintf format string, or an
+     * object, i.e. {"locale": "en-US", "style": "decimal|percent|currency|compact|auto",
+     * "currency": "USD", "decimals": 1, "grouping": true, "prefix": "", "suffix": ""}
      * @graphTypes ScatterBubble2D, Scatter3D
      * @default false
      */

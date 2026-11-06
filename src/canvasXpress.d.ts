@@ -154,7 +154,7 @@ declare namespace CanvasXpress {
 
   /**
    * Full chart configuration — one property per parameter in the CanvasXpress
-   * config schema (1799 keys). String enums become open literal
+   * config schema (1800 keys). String enums become open literal
    * unions (except `graphType`, which is closed); `@graphTypes` in a key's JSDoc
    * lists the graph types it applies to (absent = all). The index signature keeps
    * obfuscation aliases and any newer key valid. See `CXConfigFor<G>` for the
@@ -9109,6 +9109,12 @@ declare namespace CanvasXpress {
      */
     upsetSetsBarColor?: string | boolean;
     /**
+     * Ratio of the canvas width used by the set size bar plot on the left
+     * @graphTypes Heatmap
+     * @default 0.2
+     */
+    upsetSetsBarRatio?: number | boolean;
+    /**
      * Transparency of shading in matrix
      * @graphTypes Heatmap
      * @default 0.1
@@ -13007,6 +13013,7 @@ declare namespace CanvasXpress {
     | "upsetMatrixPlotBarRatio"
     | "upsetPointSizeFactor"
     | "upsetSetsBarColor"
+    | "upsetSetsBarRatio"
     | "upsetShadeAlpha"
     | "upsetShadeColor";
   /** Config keys in the "Variables" category. */

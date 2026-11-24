@@ -154,7 +154,7 @@ declare namespace CanvasXpress {
 
   /**
    * Full chart configuration — one property per parameter in the CanvasXpress
-   * config schema (1811 keys). String enums become open literal
+   * config schema (1823 keys). String enums become open literal
    * unions (except `graphType`, which is closed); `@graphTypes` in a key's JSDoc
    * lists the graph types it applies to (absent = all). The index signature keeps
    * obfuscation aliases and any newer key valid. See `CXConfigFor<G>` for the
@@ -723,6 +723,15 @@ declare namespace CanvasXpress {
      */
     bubbleOutlineColor?: string | boolean;
     /**
+     * Two colors [belowColor, meetsOrAboveColor] that fill each bullet value bar by attainment
+     * of its target (bulletTargetVarName): below-target bars use the first color,
+     * at-or-above-target bars the second. Empty disables attainment coloring, so bars keep their
+     * normal color. Distinct from bulletTargetVar, which colors the target marker itself
+     * @graphTypes Bullet
+     * @default []
+     */
+    bulletColorByTarget?: unknown[] | boolean | string | number;
+    /**
      * Style for the bullet. "progress" renders a thin rounded rail with a full-axis background
      * track, the sample name captioned above and the value at the rail end
      * @graphTypes Bullet
@@ -932,11 +941,13 @@ declare namespace CanvasXpress {
      */
     circularRotate?: number | boolean;
     /**
-     * Orientation to show the sample names
+     * Orientation to show the sample names. perpendicular and circular align the text to each
+     * spoke; horizontal keeps every label upright (the default for radar charts, which reads
+     * like a Vega radar and lets the plot grow)
      * @graphTypes Circular
      * @default "perpendicular"
      */
-    circularSampleLabelOrientation?: "perpendicular" | "circular" | false | (string & {});
+    circularSampleLabelOrientation?: "perpendicular" | "circular" | "horizontal" | false | (string & {});
     /**
      * Position to align the percent and radial axes in circular plot
      * @graphTypes Circular
@@ -1212,6 +1223,13 @@ declare namespace CanvasXpress {
      */
     colorNodeBy?: string | boolean;
     /**
+     * Flag to automatically extend the colors palette with generated hues instead of wrapping
+     * (colors[i % colors.length]) when a chart needs more series colors than the palette holds.
+     * Applies only when colorScheme is User and colors is still the untouched default palette
+     * @default false
+     */
+    colorPaletteExtend?: boolean;
+    /**
      * Color schemes can be user defined which will take the colors in the color property or one
      * provided in canvasXpress. The order of the colors will be used to sequentially select when
      * a different color is needed in a particular visualization
@@ -1229,6 +1247,13 @@ declare namespace CanvasXpress {
      * @default ["#4575b4","#91bfdb","#e0f3f8","#ffffbf","#fee090","#fc8d59","#d73027"]
      */
     colorSpectrum?: unknown[] | boolean | string | number;
+    /**
+     * Flag to automatically pick a sequential light-grey to colors[0] ramp instead of the
+     * diverging colorSpectrum when the colorBy data range is one-signed (all positive or all
+     * negative); a range spanning zero keeps using colorSpectrum
+     * @default false
+     */
+    colorSpectrumAuto?: boolean;
     /**
      * Flag to bin the color spectrum based on the colorSpectrumBreaks or the colorSpectrum
      * colors
@@ -1351,6 +1376,16 @@ declare namespace CanvasXpress {
      * @default false
      */
     connectKey?: Record<string, unknown> | boolean;
+    /**
+     * Flag to connect line and area plots across missing (null) data by filling each series.
+     * Interior gaps are linearly interpolated between the defined neighbouring points and
+     * leading or trailing gaps carry the nearest defined value, so the line joins across the gap
+     * and the area does not drop to the baseline instead of leaving a break. Applies to Line,
+     * Area and Streamgraph only
+     * @graphTypes Area, AreaLine, BarLine, DotLine, Line, ParallelCoordinates … (9 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    connectNullData?: boolean;
     /**
      * URL for the Connectors service. Use your own http://localhost:8300/ or bult-in
      * https://www.canvasxpress.org/connectors/
@@ -8215,6 +8250,17 @@ declare namespace CanvasXpress {
      */
     smpLabelAutoAlignPosition?: boolean;
     /**
+     * Flag to relabel the drawn date sample labels hierarchically on a one dimensional
+     * categorical sample axis: the year at its first shown occurrence and the short month name
+     * otherwise, the way a time axis reads. Unlike smpLabelTimeAuto it does not move the labels
+     * to nice calendar boundaries -- placement stays driven by smpLabelInterval -- so it suits
+     * bar charts, which keep a label on every n-th bar. Ignored when the sample names are not
+     * dates or when isGraphTime is set
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    smpLabelDateAuto?: boolean;
+    /**
      * Flag to use images as sample labels when possible
      * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
      * @default false
@@ -8232,6 +8278,23 @@ declare namespace CanvasXpress {
      * @default 1
      */
     smpLabelInterval?: number | boolean;
+    /**
+     * Flag to pick the sample label draw interval from the available band width instead of a
+     * fixed smpLabelInterval, thinning crowded sample-axis labels so neighbouring labels no
+     * longer overlap. Ignored when smpLabelInterval is set above 1
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    smpLabelIntervalAuto?: boolean;
+    /**
+     * Flag to auto-select a readable set of date/time sample labels at nice calendar boundaries
+     * (years, quarters, months) on an evenly-spaced categorical sample axis in one dimensional
+     * plots, the way a time axis selects ticks, without repositioning the points. Ignored when
+     * the sample names are not dates or when isGraphTime is set
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    smpLabelTimeAuto?: boolean;
     /**
      * Object to assign properties of the sample overlays. The key should be a valid sample
      * annotation (metadata) and the value and object with properties like: type, color,
@@ -8311,6 +8374,16 @@ declare namespace CanvasXpress {
      */
     smpTextScaleFontFactor?: number | boolean;
     /**
+     * Flag to position the sample axis of Line and Area plots on a proportional time scale when
+     * the sample names are dates, so each point sits at its real date (uneven calendar gaps
+     * render as uneven pixel gaps) instead of at an evenly-spaced categorical slot. Combine with
+     * smpLabelTimeAuto for evenly-spaced date labels. Ignored for other graph types, for
+     * non-date samples, or when isGraphTime is set
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    smpTimeScale?: boolean;
+    /**
      * Title for the sample axis in one dimensional plots
      * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
      * @default false
@@ -8372,6 +8445,16 @@ declare namespace CanvasXpress {
      * @default 1
      */
     smpTitleScaleFontFactor?: number | boolean;
+    /**
+     * Flag to position the sample axis of Line and Area plots on a proportional numeric scale
+     * when the sample names are numbers, so each point sits at its real value (uneven numeric
+     * gaps render as uneven pixel gaps) and the axis is labelled with nice round ticks instead
+     * of printing every sample name at an evenly-spaced categorical slot. Ignored for other
+     * graph types, for non-numeric samples, or when isGraphTime is set
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    smpValueScale?: boolean;
     /**
      * Flag to use case sensitive in ascii sorting. Almost private parameters used within the
      * different CanvasXpress UIs
@@ -8486,6 +8569,14 @@ declare namespace CanvasXpress {
      * @default "drop-oldest"
      */
     streamEvict?: "drop-oldest" | false | (string & {});
+    /**
+     * Flag to linearly interpolate each group's sparse points onto the wiggle grid instead of
+     * zero-padding the gaps between them (the ggstream-parity default), so sparse Streamgraph
+     * data no longer tapers to nothing between points
+     * @graphTypes Scatter2D
+     * @default false
+     */
+    streamInterpolateGaps?: boolean;
     /**
      * Maximum number of samples to retain when live-streaming via pushData(). When set, each
      * pushData() call appends the incoming samples and evicts the oldest ones beyond this window
@@ -8779,10 +8870,12 @@ declare namespace CanvasXpress {
     /**
      * The style for the plot or theme will control all the non-data elements of the plot
      * including titles, legends, axes, panel and plot background colors and other stylistic
-     * elements
+     * elements. Accepts a single style name, or a two-member array [chartTheme, widgetsStyle] to
+     * pair a chart theme with a widgets look (for example ['economist', 'bms']); a widgets-only
+     * name fills the widgets slot alone
      * @default "none"
      */
-    theme?: string | boolean;
+    theme?: string | string[] | boolean | number;
     /**
      * Transparency for the map fill drawn over the tile basemap
      * @graphTypes Map
@@ -9285,11 +9378,29 @@ declare namespace CanvasXpress {
      */
     varHighlightColor?: string | boolean;
     /**
+     * Flag to relabel the drawn date variable labels hierarchically on a heatmap variable axis:
+     * the year at its first shown occurrence and the short month name otherwise, the way a time
+     * axis reads. The variable-axis twin of smpLabelDateAuto; placement stays driven by
+     * varLabelInterval. Ignored when the variable names are not dates
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    varLabelDateAuto?: boolean;
+    /**
      * Interval for the variable labels in heatmaps
      * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
      * @default 1
      */
     varLabelInterval?: number | boolean;
+    /**
+     * Flag to pick the variable label draw interval from the available band width instead of a
+     * fixed varLabelInterval, thinning crowded variable-axis labels so neighbouring labels no
+     * longer overlap. The variable-axis twin of smpLabelIntervalAuto. Ignored when
+     * varLabelInterval is set above 1
+     * @graphTypes Alluvial, Area, AreaLine, Bar, BarLine, Boxplot … (65 types; see CXGraphTypeKeys)
+     * @default false
+     */
+    varLabelIntervalAuto?: boolean;
     /**
      * Object to assign properties of the variable overlays. The key should be a valid variable
      * annotation (metadata) and the value and object with properties like: type, color,
@@ -11500,6 +11611,7 @@ declare namespace CanvasXpress {
     | "bubbleOutlineColor";
   /** Config keys in the "Bullet Graphs" category. */
   export type CXKeysBulletGraphs =
+    | "bulletColorByTarget"
     | "bulletStyle"
     | "bulletTargetLineWidth"
     | "bulletTargetType"
@@ -11597,8 +11709,10 @@ declare namespace CanvasXpress {
     | "blindnessType"
     | "colorLegendLabels"
     | "colorLegendSteps"
+    | "colorPaletteExtend"
     | "colorScheme"
     | "colorSpectrum"
+    | "colorSpectrumAuto"
     | "colorSpectrumBinned"
     | "colorSpectrumBreaks"
     | "colorSpectrumBreaksMethod"
@@ -12435,6 +12549,7 @@ declare namespace CanvasXpress {
     | "sizeLegendNested";
   /** Config keys in the "Line Graphs" category. */
   export type CXKeysLineGraphs =
+    | "connectNullData"
     | "coordinateLineColor"
     | "lineDecoration"
     | "lineErrorType"
@@ -12916,9 +13031,12 @@ declare namespace CanvasXpress {
     | "showSampleNames"
     | "smpHighlightColor"
     | "smpLabelAutoAlignPosition"
+    | "smpLabelDateAuto"
     | "smpLabelImage"
     | "smpLabelImageRound"
     | "smpLabelInterval"
+    | "smpLabelIntervalAuto"
+    | "smpLabelTimeAuto"
     | "smpTextAlign"
     | "smpTextBaseline"
     | "smpTextColor"
@@ -12928,6 +13046,7 @@ declare namespace CanvasXpress {
     | "smpTextRotate"
     | "smpTextRotateAuto"
     | "smpTextScaleFontFactor"
+    | "smpTimeScale"
     | "smpTitle"
     | "smpTitleAlign"
     | "smpTitleBaseline"
@@ -12937,6 +13056,7 @@ declare namespace CanvasXpress {
     | "smpTitleMargin"
     | "smpTitleRotate"
     | "smpTitleScaleFontFactor"
+    | "smpValueScale"
     | "varTextRotateAuto";
   /** Config keys in the "Sankey Diagrams" category. */
   export type CXKeysSankeyDiagrams =
@@ -13035,7 +13155,8 @@ declare namespace CanvasXpress {
     | "scatterStreamNumber"
     | "scatterStreamTrueRange"
     | "scatterStreamType"
-    | "scatterStreamWiggles";
+    | "scatterStreamWiggles"
+    | "streamInterpolateGaps";
   /** Config keys in the "Swimmer Graphs" category. */
   export type CXKeysSwimmerGraphs =
     | "swimEnd"
@@ -13145,7 +13266,9 @@ declare namespace CanvasXpress {
     | "maxVarStringLen"
     | "showVariableNames"
     | "varHighlightColor"
+    | "varLabelDateAuto"
     | "varLabelInterval"
+    | "varLabelIntervalAuto"
     | "varTextAlign"
     | "varTextBaseline"
     | "varTextColor"
